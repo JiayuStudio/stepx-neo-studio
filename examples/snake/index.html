@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Neo 贪吃蛇</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <h1 class="title">Neo 贪吃蛇</h1>
+      <div class="scores">
+        <div class="score-box">
+          <span class="score-label">得分</span>
+          <span class="score-value" id="score">0</span>
+        </div>
+        <div class="score-box">
+          <span class="score-label">最高分</span>
+          <span class="score-value" id="best">0</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="board-wrap">
+      <div
+        id="board"
+        class="board"
+        role="img"
+        aria-label="贪吃蛇棋盘，16 乘 16 格"
+      >
+        <div class="cell-btn-row" hidden></div>
+      </div>
+      <div class="overlay" id="overlay" hidden>
+        <p class="overlay-text" id="overlay-text">准备开始</p>
+      </div>
+    </section>
+
+    <p class="status" id="status" role="status" aria-live="polite">准备开始：点“开始游戏”</p>
+
+    <section class="controls" aria-label="控制区">
+      <div class="actions">
+        <button type="button" id="btn-start" class="btn primary">开始游戏</button>
+        <button type="button" id="btn-pause" class="btn" disabled>暂停</button>
+        <button type="button" id="btn-restart" class="btn" disabled>重开</button>
+      </div>
+
+      <div class="dpad" role="group" aria-label="方向键">
+        <button type="button" class="dir up" data-dir="up" aria-label="向上">▲</button>
+        <button type="button" class="dir left" data-dir="left" aria-label="向左">◀</button>
+        <button type="button" class="dir down" data-dir="down" aria-label="向下">▼</button>
+        <button type="button" class="dir right" data-dir="right" aria-label="向右">▶</button>
+      </div>
+    </section>
+
+    <p class="hint">玩法：吃青绿果实得 1 分并变长；撞墙或撞到自己即结束。触屏可点方向键或在棋盘上滑动，键盘可用方向键。</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

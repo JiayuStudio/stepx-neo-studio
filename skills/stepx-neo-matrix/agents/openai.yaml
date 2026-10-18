@@ -1,0 +1,4 @@
+interface:
+  display_name: "StepX Neo 背屏点阵开发"
+  short_description: "开发 Neo 背屏点阵动画、生成独立 App 并验证常亮和后台播放"
+  default_prompt: "使用 $stepx-neo-matrix 开发背屏点阵动画并验证 Neo 真机播放。"

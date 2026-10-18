@@ -1,0 +1,20 @@
+package studio.jiayu.matrix;
+import android.content.*;import android.database.Cursor;import android.net.Uri;import android.security.keystore.*;import android.util.Base64;
+import org.json.*;import javax.crypto.*;import javax.crypto.spec.GCMParameterSpec;import java.security.*;import java.net.*;import java.io.*;
+/** Independent implementation of the observed device MCP protocol. Identity is verified by StepOS. */
+public final class MatrixConnection {
+ final Context context;int port;String nonce;int sequence;volatile HttpURLConnection active;
+ public MatrixConnection(Context c){context=c.getApplicationContext();}
+ static SecretKey key()throws Exception{KeyStore k=KeyStore.getInstance("AndroidKeyStore");k.load(null);String alias="neo-matrix-auth-v1";if(!k.containsAlias(alias)){KeyGenerator g=KeyGenerator.getInstance("AES","AndroidKeyStore");g.init(new KeyGenParameterSpec.Builder(alias,3).setBlockModes("GCM").setEncryptionPaddings("NoPadding").build());g.generateKey();}return (SecretKey)k.getKey(alias,null);}
+ public static boolean configured(Context c){return c.getSharedPreferences("matrix-auth",0).contains("key");}
+ public static void save(Context c,String value)throws Exception{if(value.isEmpty()){c.getSharedPreferences("matrix-auth",0).edit().clear().commit();return;}if(value.length()>512||value.matches(".*[\\r\\n].*"))throw new Exception("授权凭据格式无效");Cipher a=Cipher.getInstance("AES/GCM/NoPadding");a.init(1,key());String s=Base64.encodeToString(a.getIV(),2)+":"+Base64.encodeToString(a.doFinal(value.getBytes("UTF-8")),2);if(!c.getSharedPreferences("matrix-auth",0).edit().putString("key",s).commit())throw new Exception("保存失败");}
+ String secret()throws Exception{String s=context.getSharedPreferences("matrix-auth",0).getString("key","");if(s.isEmpty())throw new Exception("尚未配置当前 App 的官方背屏授权");String[]p=s.split(":");Cipher a=Cipher.getInstance("AES/GCM/NoPadding");a.init(2,key(),new GCMParameterSpec(128,Base64.decode(p[0],2)));return new String(a.doFinal(Base64.decode(p[1],2)),"UTF-8");}
+ public JSONObject call(String tool,JSONObject args)throws Exception{
+  if(!tool.equals("set_back_screen_frame")&&!tool.equals("clear_back_screen_frame")&&!tool.equals("get_back_screen_display_info"))throw new Exception("不支持的背屏操作");
+  String key=secret();if(port==0){try(Cursor c=context.getContentResolver().query(Uri.parse("content://com.stepos.ability.mcp/handshake"),null,"api_key",new String[]{key},null)){if(c==null||!c.moveToFirst())throw new Exception("Neo 背屏服务未就绪");port=c.getInt(c.getColumnIndexOrThrow("port"));nonce=c.getString(c.getColumnIndexOrThrow("nonce"));if(port<1||port>65535||nonce==null||nonce.isEmpty())throw new Exception("背屏服务握手无效");}}
+  int id=++sequence;JSONObject body=new JSONObject().put("jsonrpc","2.0").put("id",id).put("method","tools/call").put("params",new JSONObject().put("name",tool).put("arguments",args));
+  HttpURLConnection c=(HttpURLConnection)new URL("http://127.0.0.1:"+port+"/mcp").openConnection();active=c;c.setInstanceFollowRedirects(false);c.setConnectTimeout(5000);c.setReadTimeout(12000);c.setRequestMethod("POST");c.setDoOutput(true);c.setRequestProperty("Authorization","Bearer "+key);c.setRequestProperty("Content-Type","application/json");
+  try{try(OutputStream out=c.getOutputStream()){out.write(body.toString().getBytes("UTF-8"));}int code=c.getResponseCode();if(!nonce.equals(c.getHeaderField("X-Mcp-Nonce")))throw new Exception("背屏服务身份校验失败");if(code!=200)throw new Exception("背屏授权或请求失败（HTTP "+code+"），请核对当前包名和签名的官方授权");ByteArrayOutputStream out=new ByteArrayOutputStream();try(InputStream in=c.getInputStream()){byte[] b=new byte[4096];int n;while((n=in.read(b))!=-1){if(out.size()+n>131072)throw new Exception("背屏响应过大");out.write(b,0,n);}}JSONObject reply=new JSONObject(out.toString("UTF-8"));if(reply.optInt("id",-1)!=id||reply.has("error"))throw new Exception("背屏服务返回请求错误，请核对授权范围");JSONObject r=reply.getJSONObject("result");if(r.optBoolean("isError")||!r.optBoolean("success"))throw new Exception("背屏操作未成功，可能需要在官方 App 完成权限授权");return r;}finally{c.disconnect();active=null;}
+ }
+ public void cancel(){HttpURLConnection c=active;if(c!=null)c.disconnect();}
+}

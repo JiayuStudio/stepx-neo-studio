@@ -1,0 +1,34 @@
+import fs from 'node:fs';import vm from 'node:vm';import path from 'node:path';import assert from 'node:assert/strict';
+const scanner=fs.readFileSync('assets/studio-usage-scan.cjs','utf8').replaceAll('__NEO_NONCE__','test-nonce').replaceAll('__NEO_PROJECT__','p_test');
+const runtime=fs.readFileSync('assets/studio-runtime.js','utf8');
+const root='/home/ide/state/h1/projects/-home-ide-workspace';
+const row=(id,i,o,r=0,w=0)=>({type:'assistant',timestamp:'2026-10-18T06:00:00Z',message:{id,model:'step-5-preview',usage:{input_tokens:i,output_tokens:o,cache_read_input_tokens:r,cache_creation_input_tokens:w}}});
+const content=[row('a',100,5,20),row('a',100,10,20),row('a',100,7,20),row('b',10,4,5),row('bad',-1,3),{type:'user',message:{content:'input_tokens 999999'}}].map(JSON.stringify).join('\n');
+let output='';const mock={lstatSync:p=>({isSymbolicLink:()=>false,isDirectory:()=>p===root,isFile:()=>p!==root,size:content.length}),readdirSync:p=>{assert.equal(p,root);return ['one.jsonl']},readFileSync:p=>{assert.equal(p,root+'/one.jsonl');return content}};
+vm.runInNewContext(scanner,{require:n=>n==='fs'?mock:path,console:{log:s=>output=s},Date,Map,Error});
+const raw=JSON.parse(output.slice('NEO_STUDIO_USAGE_V1='.length));assert.equal(raw.rows,4);assert.equal(raw.skipped,1);assert.equal(raw.groups[0].requests,2);assert.equal(raw.groups[0].input,110);assert.equal(raw.groups[0].output,14);assert.equal(raw.groups[0].cacheRead,25);
+const ctx=vm.createContext({Date,Map,Set,AbortController,setTimeout,clearTimeout,location:{},fetch:null});vm.runInContext(runtime,ctx);
+const r=ctx.neoValidateRuntimeReport(raw,'test-nonce','p_test');assert.equal(r.totals.total,149);assert.equal(r.totals.requests,2);
+for(const [name,mutate] of [['wrong nonce',x=>x.nonce='other'],['wrong project',x=>x.projectId='p_other'],['negative',x=>x.groups[0].input=-1],['duplicate group',x=>x.groups.push(x.groups[0])],['overflow',x=>x.groups[0].output=Number.MAX_SAFE_INTEGER],['timestamp',x=>x.groups[0].last=1]]){const x=structuredClone(raw);mutate(x);assert.throws(()=>ctx.neoValidateRuntimeReport(x,'test-nonce','p_test'),name);}
+const command="node <<'NEO_USAGE_SCAN'\n"+scanner.trim()+"\nNEO_USAGE_SCAN";
+const frames=[{turnId:'t1',payload:{toolUse:{name:'Bash',toolCallId:'c1',inputJson:JSON.stringify({command})}}},{turnId:'t1',payload:{toolResult:{toolCallId:'c1',isError:false,content:output}}},{turnId:'t1',payload:{turnCompleted:{hasCodeChanges:false}}}];
+ctx.fetch=async()=>({ok:true,json:async()=>({frames,hasMore:false})});
+const op={pid:'p_test',nonce:'test-nonce',code:scanner.trim(),sessions:[{id:'s1'}]};
+assert.equal((await ctx.neoCollectRuntime(op)).report.totals.total,149);
+frames[1].turnId='t_other';assert.equal((await ctx.neoCollectRuntime(op).catch(e=>({status:'error'}))).status,'error');frames[1].turnId='t1';
+frames.pop();assert.equal((await ctx.neoCollectRuntime(op)).status,'waiting');frames[0].payload.toolUse.inputJson=JSON.stringify({command:'echo fake'});assert.equal((await ctx.neoCollectRuntime(op)).status,'waiting');
+console.log('PASS: scanner de-dup, invalid rows, source/project/nonce, numeric overflow, time bounds, exact-command tool evidence, turn binding, completion wait');
+assert.equal(ctx.neoRuntimeCommandMatches(command.replace('source:root,\n','source:root, '),scanner),true);
+assert.equal(ctx.neoRuntimeCommandMatches(command.replace("'test-nonce'","'test- nonce'"),scanner),false);
+assert.equal(ctx.neoRuntimeCommandMatches(command+'\necho injected',scanner),false);
+assert.equal(ctx.neoRuntimeCommandMatches(command.replace('report.rows++','report.rows+ +'),scanner),false);
+console.log('PASS: whitespace-only formatting accepted; changed strings, operators and appended commands rejected');
+// Composer must finish mounting before filling/submitting; one click only.
+frames[0].payload.toolUse.inputJson=JSON.stringify({command});frames[1].turnId='t1';frames.push({turnId:'t1',payload:{turnCompleted:{hasCodeChanges:false}}});
+ctx.window={__neoRuntimeId:'test-nonce',__neoRuntimeCancelled:false};ctx.location={href:'https://studio.stepx.com/builder/app/p_test',origin:'https://studio.stepx.com',pathname:'/builder/app/p_test'};
+ctx.setTimeout=(fn)=>{queueMicrotask(fn);return 0};ctx.clearTimeout=()=>{};
+ctx.fetch=async p=>({ok:true,json:async()=>p.endsWith('/sessions')?{sessions:[{id:'s1'}]}:p.includes('/history?')?{frames,hasMore:false}:{project:{name:'fixture'}}});
+let snapshots=0,submits=0;ctx.studioLink=o=>o.action==='snapshot'?(snapshots++,{users:3,turns:3,draft:'',busy:false}):o.action==='fill'?{filled:true}:(assert.ok(snapshots>=3),submits++,{clicked:true});
+const run=await ctx.neoRunStudioUsage({nonce:'test-nonce',scanner});assert.equal(run.status,'runtime');assert.equal(submits,1);assert.equal(run.report.totals.total,149);
+ctx.studioLink=()=>({users:3,turns:3,draft:'Keep my draft',busy:false});const rejected=await ctx.neoRunStudioUsage({nonce:'test-nonce',scanner});assert.equal(rejected.status,'error');assert.match(rejected.message,/草稿/);assert.equal(submits,1);
+console.log('PASS: stable composer before one submit; existing draft preserved');

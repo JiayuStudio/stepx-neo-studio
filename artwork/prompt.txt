@@ -1,0 +1,4 @@
+Built-in image_gen edit, 2026-10-18, Codex. v1.1.2.
+Input: existing v1.1.1 neo-studio-icon.png, inspected before editing. Old artwork remains in historical version folders and Git history.
+Direction: preserve centered </> identity; replace chrome, screws, engraved ticks and green glow with graphite-gray rounded-square surface and orange #ff8455 glyph. Contemporary AI app, subtle shallow tactile relief, restrained edge light and contact shadow, front view, no text or official Step trademark. Full-bleed square asset, legible at launcher size.
+Output: artwork/neo-studio-icon.png; res/drawable/icon.png is deployment resize to 192px. Original generated image retained in Codex generated_images.

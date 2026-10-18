@@ -1,0 +1,13 @@
+out/
+evidence/
+research/
+dist/
+.DS_Store
+Icon?
+*.p12
+*.jks
+*.keystore
+*.pem
+.env*
+
+node_modules/

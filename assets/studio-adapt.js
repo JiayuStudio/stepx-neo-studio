@@ -1,0 +1,2 @@
+// Mobile-only public DOM adaptation. Keep Studio's modal/backdrop semantics intact.
+(()=>{if(location.origin!=='https://studio.stepx.com')return;let style=document.getElementById('neo-studio-fit');if(!style){style=document.createElement('style');style.id='neo-studio-fit';document.head.appendChild(style)}style.textContent='@media(max-width:600px){[data-slot="app-builder-root"][data-compact="true"][data-drawer-open="true"] section[aria-label="开发对话"][role="dialog"]{width:100%!important;max-width:100%!important}}';})();

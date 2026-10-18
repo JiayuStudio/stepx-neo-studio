@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Neo 功能实验室</title><link rel="stylesheet" href="style.css"></head><body>
+<header><small>NEO DEVICE LAB</small><h1>功能实验室</h1><p>实际调用、逐项核验。照片与声音只在本机处理。</p></header>
+<section><h2>摄像头 <b id="cameraState">待测试</b></h2><p>实时预览，不拍照、不保存、不上传。</p><button id="cameraStart">打开摄像头</button><button id="cameraStop">停止摄像头</button><video id="camera" autoplay muted playsinline hidden></video><output id="cameraResult"></output></section>
+<section><h2>麦克风 <b id="micState">待测试</b></h2><p>本机音量计，不录制音频。</p><button id="micStart">打开麦克风</button><button id="micStop">停止麦克风</button><meter id="level" min="0" max="1" value="0"></meter><output id="micResult"></output></section>
+<section><h2>文件 <b id="fileState">待测试</b></h2><label>选择不含隐私的 UTF-8 文本<input id="file" type="file" accept=".txt,.json,.md,text/plain,application/json"></label><output id="fileResult"></output><button id="saveTest">保存测试 JSON</button><output id="saveResult"></output></section>
+<section><h2>网络 <b id="networkState">待测试</b></h2><label>公开 HTTPS 测试地址<input id="url" type="url" value="https://api.github.com/zen"></label><button id="networkStart">测试网络</button><output id="networkResult"></output></section>
+<section><h2>AI API <b id="aiState">待测试</b></h2><p>由 Neo Studio 弹出原生确认并使用已保存配置；此 App 不接收密钥。</p><button id="aiStart">请求“连接成功”</button><output id="aiResult"></output></section>
+<section><h2>调试回传</h2><p>错误与测试结果先保存在本机，回传前可以查看。菜单开启调试模式后使用回传。</p><button id="report">回传到 Neo Studio</button><button id="export">导出调试 JSON</button><button id="inspect">查看报告</button><pre id="reportView" hidden></pre><small id="identity"></small></section>
+<script src="app.js"></script></body></html>

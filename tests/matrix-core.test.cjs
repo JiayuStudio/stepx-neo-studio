@@ -1,0 +1,6 @@
+const assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+const core=require('../assets/matrix-core.js');let n=0;
+function reject(mut){const x=core.initial();mut(x);assert.throws(()=>core.validate(x));n++;}
+assert.equal(core.validate(core.initial()).frames[0].pixels.length,391);n++;
+reject(x=>x.width=23);reject(x=>x.frames=[]);reject(x=>x.loop='true');reject(x=>x.frames[0].pixels.pop());reject(x=>x.frames[0].pixels[0]=0.5);reject(x=>x.frames[0].pixels[0]='255');reject(x=>x.frames[0].pixels[0]=256);reject(x=>x.frames[0].durationMs=199);reject(x=>x.frames=Array(121).fill(core.blank()));
+const ctx={MatrixCore:core,window:{receive(){}},app:{addEventListener(){}},setInterval,clearInterval,setTimeout,clearTimeout};vm.createContext(ctx);vm.runInContext(fs.readFileSync('assets/matrix.js','utf8'),ctx);const files=vm.runInContext('matrixFiles(MatrixCore.initial())',ctx);const portable={};vm.createContext(portable);vm.runInContext(files['matrix-core.js'],portable);assert.equal(vm.runInContext('MatrixCore.validate('+files['neo-matrix.json']+').frames.length',portable),2);n++;new vm.Script(files['matrix-player.js']);assert(files['MATRIX.md'].includes('ic_atomic_990001'));n++;console.log(`PASS ${n} matrix contract and portable source checks`);
