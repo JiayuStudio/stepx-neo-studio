@@ -3,6 +3,7 @@ import org.json.*;
 /** All values originate in provider usage. Detail fields are subsets, not extra totals. */
 final class Usage {
  static String source(JSONObject profile){
+  if(profile.optString("protocol").equals("local"))return "local_model";
   try{return "api.stepfun.com".equalsIgnoreCase(android.net.Uri.parse(profile.optString("endpoint")).getHost())?"step_api":"external_api";}catch(Exception e){return "external_api";}
  }
  static JSONObject parse(JSONObject body,String protocol)throws Exception{

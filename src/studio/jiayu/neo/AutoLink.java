@@ -15,7 +15,7 @@ final class AutoLink {
  void backfill()throws Exception{JSONArray ps=a.state.getJSONArray("projects");for(int i=0;i<ps.length();i++){JSONObject p=ps.getJSONObject(i);JSONArray runs=p.optJSONArray("autoRuns");if(runs!=null)for(int j=0;j<runs.length();j++){JSONObject r=runs.getJSONObject(j);if(!r.optString("studioSummary").isEmpty())recordStudio(r,p.getString("id"));}JSONObject r=p.optJSONObject("autoRun");if(r!=null&&!r.optString("studioSummary").isEmpty())recordStudio(r,p.getString("id"));}}
  void panel(){try{String id=projectId;if(!running){id="";JSONArray ps=a.state.getJSONArray("projects");for(int i=0;i<ps.length();i++){JSONObject p=ps.getJSONObject(i);if(p.optString("studioUrl").equals(a.studio.getUrl())){id=p.getString("id");break;}}}a.show("projects");if(!id.isEmpty())a.event("autoOpen",id);else a.toast("请在本地项目的项目协作中关联当前Studio项目");}catch(Exception e){a.toast(a.safeError(e));}}
  void request(JSONObject data)throws Exception{
-  if(running||a.studioUsage.running||a.active!=null||IntegrationActivity.busy||a.building)throw new Exception("请先结束当前运行任务");
+  if(a.cloud.busy()||running||a.studioUsage.running||a.active!=null||IntegrationActivity.busy||a.building)throw new Exception("请先结束当前运行任务");
   JSONObject p=a.byId("projects",data.getString("id")),profile=a.byId("profiles",data.getString("profileId"));String url=p.optString("studioUrl"),task=data.optString("task").trim();
   if(!url.matches("https://studio\\.stepx\\.com/builder/app/[A-Za-z0-9_-]+"))throw new Exception("先关联Studio应用项目的完整链接");
   if(task.isEmpty()||task.length()>4000)throw new Exception("任务需为1–4000字");if(!a.vault.has(profile.getString("id")))throw new Exception("所选模型尚未保存密钥");
@@ -23,6 +23,7 @@ final class AutoLink {
   new AlertDialog.Builder(a).setTitle("启动自动联动").setMessage(p.optString("name")+"\n"+profile.optString("name")+" · "+profile.optString("model")+"\n\n"+task+"\n\n最多 "+max+" 轮Studio开发和 "+(max+1)+" 次外部API调用，按各自账户计费。自动读取此项目可见对话并发送任务；请保持本应用前台。不会点击发布、安装或自动覆盖本地代码。").setPositiveButton("开始联动",(d,w)->{try{start(p,profile,task,max);}catch(Exception e){stop(a.safeError(e));}}).setNegativeButton("取消",null).show();
  }
  void start(JSONObject p,JSONObject profile,String task,int max)throws Exception{
+  if(a.cloud.busy()||a.active!=null||a.building)throw new Exception("请先结束同步或当前任务");
   p.put("autoDraft",task).put("autoRounds",max).put("autoProfile",profile.getString("id"));projectId=p.getString("id");JSONObject old=p.optJSONObject("autoRun");if(old!=null){JSONArray archive=p.optJSONArray("autoRuns");if(archive==null)archive=new JSONArray();archive.put(old);while(archive.length()>5)archive.remove(0);p.put("autoRuns",archive);}domRetries=0;run=new JSONObject().put("id",UUID.randomUUID().toString()).put("url",p.getString("studioUrl")).put("profileId",profile.getString("id")).put("task",task).put("maxRounds",max).put("round",0).put("started",System.currentTimeMillis()).put("events",new JSONArray());running=true;a.awake(true);expectedChat="";deadline=System.currentTimeMillis()+90000;
   stage("opening","正在打开关联的Studio项目");a.openStudioProject(projectId);later(1000,()->initial());
  }

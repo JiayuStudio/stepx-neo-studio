@@ -9,7 +9,7 @@
 
 生成有效示例：`python3 scripts/matrix_json.py sample /path/to/neo-matrix.json`。
 
-StepX Neo Studio 1.1.9的点阵工坊会生成 index.html、matrix-core.js、matrix-player.js、MATRIX.md和动画JSON。AI通过已有项目修改接口更新文本文件，提供当前文件基线并保存快照。无需将模型密钥嵌入项目。上传Studio后按平台入口要求适配；上传成功不代表云端构建完成。
+StepX Neo Studio 1.1.10 已移除工坊入口，现有项目与独立运行壳接口保留。新项目需自行提供 HTML 页面，使用下方接口。历史 1.1.9 的工坊会生成 index.html、matrix-core.js、matrix-player.js、MATRIX.md和动画JSON。AI通过已有项目修改接口更新文本文件，提供当前文件基线并保存快照。无需将模型密钥嵌入项目。上传Studio后按平台入口要求适配；上传成功不代表云端构建完成。
 
 本机生成的运行壳只允许播放打包时的动画，更新后重新构建：
 

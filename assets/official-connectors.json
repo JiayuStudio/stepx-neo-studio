@@ -1,0 +1,2957 @@
+{
+  "source": "https://studio.stepx.com/connectors",
+  "fetchedAt": "2026-10-18T15:38:55.245Z",
+  "scope": "all",
+  "items": [
+    {
+      "id": "alipay_vibepay",
+      "name": "支付宝",
+      "kind": "firstparty",
+      "category": "支付收款",
+      "shortDesc": "在 App 中接入平台 VibePay 智能收款：收款商品管理、购买、权益校验与额度核销",
+      "description": "提供平台 VibePay 智能收款套件的接入开发指导：支付宝收款商品管理与托管配置、App 内商品展示与购买入口、权益校验与额度核销、购买请求号与幂等要求，以及报错排查与可复制的参考实现。",
+      "authType": "none",
+      "version": "0.0.28",
+      "revision": "12",
+      "deliveryType": "skills",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "为 App 接入 VibePay：收款商品、购买入口、权益校验与额度核销。",
+            "prompt": "给这个 App 加上支付功能，先做收款商品列表和购买入口",
+            "title": "接入支付功能"
+          },
+          {
+            "description": "在 App 后台增加支付宝收款商品的创建、配置码、刷新与上下架。",
+            "prompt": "在后台加一个支付宝收款商品管理页，能创建商品、看配置码并上下架",
+            "title": "管理支付宝收款商品"
+          },
+          {
+            "description": "按调用参数、请求号与数据库记录链路定位购买、核销失败。",
+            "prompt": "App 购买时报 requestId 400，帮我排查是哪一环的问题",
+            "title": "排查支付报错"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app"
+      ],
+      "url": "https://studio.stepx.com/connectors/alipay_vibepay",
+      "capabilities": []
+    },
+    {
+      "id": "ic_amap_jsapi",
+      "name": "高德地图",
+      "kind": "thirdparty",
+      "category": "地图出行",
+      "shortDesc": "地图、路线规划与地理编码",
+      "description": "接入高德开放平台，提供地图展示、路径规划、POI 检索、地理编码等能力。**用户需在高德开放平台注册开发者账号并申请自己的 Web 服务 API Key**（支持个人或企业开发者，本项目采用用户自申凭证）。",
+      "authType": "apikey",
+      "version": "0.0.2",
+      "revision": "8",
+      "deliveryType": "ability",
+      "detailContent": {
+        "interface_overview": {
+          "call_boundary": "应用前端通过高德 JSAPI 展示地图；平台提供受控地图代理与运行配置，Agent 通过平台调用高德 MCP 查询能力。",
+          "public_interfaces": "高德 JSAPI v2.0、平台地图运行配置与地点搜索、高德 maps_* MCP 查询能力"
+        },
+        "readme": "## 接入说明\n\n**用户需先在 [高德开放平台](https://lbs.amap.com/) 注册开发者账号，为「Web 服务」类型申请 API Key**（支持个人或企业开发者）。在连接弹窗选择「查询与路线规划」并填写 Web 服务 Key；需要交互式地图时再选择「同时使用交互式地图」，补充 Web 端（JS API）Key 与配对安全密钥。凭证加密保存并可跨项目复用，安全密钥只在平台代理服务端使用。网页与预览可使用地图，APK 壳的远程脚本限制尚待解除。",
+        "use_cases": [
+          {
+            "description": "在应用页面中展示交互式地图。",
+            "prompt": "做一个展示当前位置的高德地图页面",
+            "title": "展示地图"
+          },
+          {
+            "description": "在地图上展示指定地点的标记和信息。",
+            "prompt": "做一个在地图上标记附近咖啡店的页面",
+            "title": "标记地点"
+          },
+          {
+            "description": "展示起点到终点的出行路线。",
+            "prompt": "做一个输入起点和终点并展示步行路线的页面",
+            "title": "规划路线"
+          }
+        ]
+      },
+      "interfaceOverview": {
+        "publicInterfaces": "高德 JSAPI v2.0、平台地图运行配置与地点搜索、高德 maps_* MCP 查询能力",
+        "callBoundary": "应用前端通过高德 JSAPI 展示地图；平台提供受控地图代理与运行配置，Agent 通过平台调用高德 MCP 查询能力。"
+      },
+      "requiredCredentials": [
+        {
+          "key": "web_service_key",
+          "label": "Web 服务 Key",
+          "required": true,
+          "placeholder": "用于 POI 查询与路线规划",
+          "helpUrl": "https://console.amap.com/dev/key/app"
+        },
+        {
+          "key": "jsapi_key",
+          "label": "JSAPI Key",
+          "required": false,
+          "placeholder": "Web 端（JS API）Key",
+          "helpUrl": "https://lbs.amap.com/api/javascript-api-v2/prerequisites"
+        },
+        {
+          "key": "jsapi_security_code",
+          "label": "JSAPI 安全密钥",
+          "required": false,
+          "placeholder": "与 JSAPI Key 配对的 securityJsCode",
+          "helpUrl": "https://lbs.amap.com/api/javascript-api-v2/guide/abc/jscode"
+        }
+      ],
+      "builderTypes": [
+        "app"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_amap_jsapi",
+      "capabilities": [
+        {
+          "name": "maps_geo",
+          "displayName": "地理编码",
+          "description": "将结构化地址转换为经纬度坐标。"
+        },
+        {
+          "name": "maps_regeocode",
+          "displayName": "逆地理编码",
+          "description": "将经纬度坐标转换为行政区划地址信息。"
+        },
+        {
+          "name": "maps_ip_location",
+          "displayName": "IP 定位",
+          "description": "根据 IP 地址定位所在省市。"
+        },
+        {
+          "name": "maps_weather",
+          "displayName": "天气查询",
+          "description": "根据城市名称或 adcode 查询实时天气与预报。"
+        },
+        {
+          "name": "maps_bicycling",
+          "displayName": "骑行路径规划",
+          "description": "规划骑行通勤方案，最大支持 500km。"
+        },
+        {
+          "name": "maps_walking",
+          "displayName": "步行路径规划",
+          "description": "规划 100km 以内的步行通勤方案。"
+        },
+        {
+          "name": "maps_direction_driving",
+          "displayName": "驾车路径规划",
+          "description": "规划小客车、轿车通勤出行方案。"
+        },
+        {
+          "name": "maps_direction_transit_integrated",
+          "displayName": "公交路径规划",
+          "description": "综合各类公共交通方式的通勤方案。"
+        },
+        {
+          "name": "maps_distance",
+          "displayName": "距离测量",
+          "description": "测量两个经纬度坐标之间的距离。"
+        },
+        {
+          "name": "maps_text_search",
+          "displayName": "关键词搜索",
+          "description": "根据关键词搜索 POI 地点信息。"
+        },
+        {
+          "name": "maps_around_search",
+          "displayName": "周边搜索",
+          "description": "根据关键词及坐标搜索半径范围内的 POI。"
+        },
+        {
+          "name": "maps_search_detail",
+          "displayName": "详情搜索",
+          "description": "查询 POI ID 的详细信息。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_279",
+      "name": "高德地图 MCP",
+      "kind": "firstparty",
+      "category": "生活服务",
+      "shortDesc": "公交路线、距离、地理编码、IP 定位、POI、个人地图与打车链接。",
+      "description": "公交路线、距离、地理编码、IP 定位、POI、个人地图与打车链接。收录原子能力平台「高德云端MCP」的全部 9 项能力。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "2",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "高德公交/地铁路线规划。输入起终点经纬度与起终点城市（跨城时两城都必给），返回换乘方案 transits[]，每个方案 buslines[] 含线路名、乘坐距离、耗时、上下车站与途经站。",
+            "prompt": "请使用高德地图 MCP能力：高德公交/地铁路线规划。输入起终点经纬度与起终点城市（跨城时两城都必给），返回换乘方案 transits[]，每个方案 buslines[] 含线路名、乘坐距离、耗时、上下车站与途经站。",
+            "title": "maps_direction_transit_integrated"
+          },
+          {
+            "description": "高德两点间距离/耗时测量。输入起点（支持多个）与终点经纬度，按驾车/步行/直线三种方式返回 results[]（每条含 origin_id/dest_id/distance/duration）。调用逻",
+            "prompt": "请使用高德地图 MCP能力：高德两点间距离/耗时测量。输入起点（支持多个）与终点经纬度，按驾车/步行/直线三种方式返回 results[]（每条含 origin_id/dest_id/distance/duration）。调用逻",
+            "title": "maps_distance"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_279",
+      "capabilities": [
+        {
+          "name": "maps_direction_transit_integrated",
+          "displayName": "maps_direction_transit_integrated",
+          "description": "高德公交/地铁路线规划。输入起终点经纬度与起终点城市（跨城时两城都必给），返回换乘方案 transits[]，每个方案 buslines[] 含线路名、乘坐距离、耗时、上下车站与途经站。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。使用用户当前位置时，先调用 get_current_location，取 gcjLongitude、gcjLatitude；不要直接使用 coordType=wgs84 的 longitude、latitude。\n\n## 何时用\n用户问公交/地铁路线——「怎么坐地铁到X」「坐公交多久」「怎么换乘」「几号线」，返回文字换乘方案。坐标从 maps_search_detail 获取。\n\n## 公交无导航跳转（重要）\n公交/地铁没有导航跳转链接能力。用户明确选公交/地铁并要「导航」时 → 一句话告诉用户「暂不支持公交/地铁的导航跳转」，可补一句本能力给出的文字换乘方案；不要改用 amap_route_card 兜底，因为路线卡不支持公交/地铁。\n\n## 不要用\n用户说「导航」但没说出行方式（「导航去三里屯」）→ 不调本能力，改用 amap_route_card。\n\n## 边界\ndistance/duration 为字符串；返回不含首末班车时间、发车间隔、实时到站与停运信息（公交时刻类问题无法回答）。转调其它能力前，先用 ability search 查清目标能力的参数定义再传参，不要凭记忆或猜测编造参数名/格式。"
+        },
+        {
+          "name": "maps_distance",
+          "displayName": "maps_distance",
+          "description": "高德两点间距离/耗时测量。输入起点（支持多个）与终点经纬度，按驾车/步行/直线三种方式返回 results[]（每条含 origin_id/dest_id/distance/duration）。调用逻辑：坐标从 maps_search_detail 获取；「A 到 B 多远/开车多久」这类问题用本能力，不需要完整路线时比 direction 能力更轻。注意：type=0（直线）模式 duration 恒为 0，呈现时只报距离不要说成零分钟。转调其它能力前，先用 ability search 查清目标能力的参数定义再传参，不要凭记忆或猜测编造参数名/格式。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。使用用户当前位置时，先调用 get_current_location，取 gcjLongitude、gcjLatitude；不要直接使用 coordType=wgs84 的 longitude、latitude。"
+        },
+        {
+          "name": "maps_geo",
+          "displayName": "maps_geo",
+          "description": "高德地址转坐标（地理编码）。输入结构化门牌地址，返回 results[]（省市区 + location 坐标）。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。\n\n## 先反问（最高优先级）\n目的地是私人住所或人称指代（「老王家」「我朋友家」「她公司」）或任何无法对应到具体公开地点的模糊说法时 → 禁止把人名/称呼当地址硬凑、禁止编造坐标，先一句话反问用户补具体地址（小区名/门牌号/准确 POI 名）再处理。\n\n## 不要用\n仅当用户给的是纯门牌地址（如「北京市海淀区中关村南大街27号」）且后续不需要 poiId 时用本能力。给的是地名/POI/地标/店铺/品牌时一律改走 maps_text_search + maps_search_detail 两步（本能力拿不到 poiId，下游需 poiId 时会被迫回头补查）。转调其它能力前，先用 ability search 查清目标能力的参数定义再传参，不要凭记忆或猜测编造参数名/格式。"
+        },
+        {
+          "name": "maps_regeocode",
+          "displayName": "maps_regeocode",
+          "description": "高德坐标转行政区划（逆地理编码）。输入经纬度，返回国家/省/市/区。返回读取注意：解析后直接是 {country,province,city,district} 对象，没有 results 包裹层；直辖市（北京/上海/天津/重庆）的 city 字段是空数组而非字符串，呈现时回退用 province。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。使用用户当前位置时，先调用 get_current_location，取 gcjLongitude、gcjLatitude；不要直接使用 coordType=wgs84 的 longitude、latitude。"
+        },
+        {
+          "name": "maps_ip_location",
+          "displayName": "maps_ip_location",
+          "description": "高德 IP 定位。输入 IPv4 地址，返回其归属的省市、adcode 与大致范围。注意：ip 参数必须传具体 IP，传空字符串不会自动使用本机 IP（会返回空字段）。查用户当前位置不要用本能力，用系统的 get_current_location。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。本工具无经纬度入参；若返回范围坐标，同样按 GCJ-02 使用，不能将 IP 归属范围当作用户当前位置。"
+        },
+        {
+          "name": "maps_schema_personal_map",
+          "displayName": "maps_schema_personal_map",
+          "description": "生成高德 App 地图链接，把已确定的一批地点或多点行程标到高德 App 地图上给用户看。返回 amapuri://workInAmap/createWithToken 链接，用户点击后在高德地图查看。【何时用】仅当用户明确要在高德 App 地图中查看已确定地点的分布或行程标点、不要求导航时使用。用户要求「先去 A 再去 B」「经 A 到 B」等带途经点的导航时，不得调用 maps_schema_personal_map；调用 amap_route_card，按其分段导航规则处理。用户查询「某地附近有哪些 X」「附近的 X 在地图上看看」等搜索类多地点需求时，直接调用 amap_overview_card 出概览卡，不用本能力另生成地图链接。【链路】对已确定的地点，可用 maps_text_search 取得 pois[].id，再经 maps_search_detail 补坐标；多段行程按用户描述顺序排点。每个停靠点的 name/lat/lon/poiId 四项必须齐（poiId 就是 pois[].id），缺一不可。【调用逻辑】用户调整地图上的行程标点时重新组序列并重新调用本能力生成新链接（链接是 token 制，不能在旧链接上改）。【呈现】用 markdown 链接语法直出，anchor 文字用中文动作描述，如 [在地图上查看这条行程](amapuri://...)、[在地图上查看这些地点](amapuri://...)，不要总结或改写链接。【注意】每条 lineList 最多 16 个停靠点；本能力不做多点最优排序（按传入顺序摆点）。转调其它能力前，先用 ability search 查清目标能力的参数定义再传参，不要凭记忆或猜测编造参数名/格式。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。"
+        },
+        {
+          "name": "maps_search_detail",
+          "displayName": "maps_search_detail",
+          "description": "高德 POI 详情查询。输入 maps_text_search 返回的 POI id，或 amap_overview_card 选定的结果项 poiId，返回该地点的完整信息：location（经纬度，GCJ-02）、地址、商圈、类型、评分、消费、营业时间、别名、等级、图片。调用逻辑：这是坐标的唯一可靠来源——任何需要经纬度的下游能力（路线规划、导航链接、行程地图、距离测量）都先经本能力拿 location。本能力用于获取坐标或供内部计算、筛选使用的详情数据。用户询问具体地点的相关信息、介绍、地址、评分或营业时间等详情时，优先调用 amap_poi_detail_card 出卡展示，不要用本能力的原始数据代替详情卡。注意：rating 可能为空需容错；返回不含描述性介绍文本与人流热度。转调其它能力前，先用 ability search 查清目标能力的参数定义再传参，不要凭记忆或猜测编造参数名/格式。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。"
+        },
+        {
+          "name": "maps_text_search",
+          "displayName": "maps_text_search",
+          "description": "高德关键词 POI 搜索。输入地点名/品牌/地标关键词，返回候选 POI 列表 pois[]（含 id、名称、地址、类型、图片；不含坐标）。\n\n## 坐标系\n高德工具传入及返回的经纬度（包括卡片和导航链接中的坐标）均使用 GCJ-02（国测局坐标）。高德工具返回的坐标可直接传给其他高德工具，无需再次转换。本工具不返回经纬度；需坐标时凭 POI id 调 maps_search_detail，返回坐标为 GCJ-02。\n\n适用于按名称/城市查找具体地点，或为导航、详情等后续能力取得 POI id。周边地点搜索调用 amap_overview_card。\n\n## 先反问（最高优先级）\n仅当目的地是可检索的公开地点（POI 名/品牌/地标/商场/门牌地址）时才调本能力。目的地是私人住所或人称指代（「老王家」「我朋友家」「她公司」「同事那儿」）或任何无法对应到公开地点的模糊说法时 → 禁止把人名/称呼当关键词硬搜、禁止编造坐标或地址，先一句话反问用户补具体地址（小区名/门牌号/准确 POI 名），拿到再搜。\n\n## 结果处理\n仅 1 个结果直接用；多个同名不同址（连锁分店、同名商场）先列 3-5 个候选（名称+地址）让用户选，不要默认取第一个；主 POI 与其附属设施（停车场/出入口/航站楼）只取主 POI，不反问；0 结果时建议换关键词或补位置。\n\n## 下游\n用户询问具体地点的相关信息、介绍、地址、评分或营业时间等详情时，搜索只用于确定地点和获取 POI id；选定地点后，必须用 pois[].id 作为 poiId 调用 amap_poi_detail_card 展示详情卡，不要直接把搜索结果作为最终答复。\npois 不含坐标，需坐标（路线/导航/距离/地图）时用 pois[].id 调 maps_search_detail 补齐；pois[].id 即 maps_schema_personal_map 需要的 poiId。已确定多个地点且明确要在高德 App 中查看时，才补坐���后接 maps_schema_personal_map。转调其它能力前，先用 ability search 查清目标能力的参数定义再传参，不要凭记忆或猜测编造参数名/格式。"
+        },
+        {
+          "name": "maps_schema_take_taxi",
+          "displayName": "高德打车链接",
+          "description": "根据用户输入的起点和终点信息生成高德地图打车客户端唤醒 URI，用于唤起高德地图进行打车。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_464",
+      "name": "设置",
+      "kind": "firstparty",
+      "category": "StepX 系统设置",
+      "shortDesc": "查看与调整设备系统设置。",
+      "description": "打开系统设置页面，并调整无线网络、蓝牙、亮度、声音、电池、显示及其他设备设置。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "18",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_464",
+      "capabilities": [
+        {
+          "name": "settings_open_settings_homepage_activity",
+          "displayName": "settings_open_settings_homepage_activity",
+          "description": "打开系统设置主页面。"
+        },
+        {
+          "name": "settings_open_settings_locale_picker_activity",
+          "displayName": "settings_open_settings_locale_picker_activity",
+          "description": "打开/进入语言设置界面。此功能不会直接调整系统语言。"
+        },
+        {
+          "name": "settings_open_settings_device_info_settings_activity",
+          "displayName": "settings_open_settings_device_info_settings_activity",
+          "description": "打开/进入“关于本机”界面。此界面显示手机型号、系统版本号以及设备标识符（IP 地址、MAC 地址、蓝牙地址等）等信息。"
+        },
+        {
+          "name": "settings_open_manage_applications",
+          "displayName": "settings_open_manage_applications",
+          "description": "打开所有应用页面。它显示所有已安装的应用。此页面允许您查看所有已安装的应用。"
+        },
+        {
+          "name": "settings_open_settings_storage_dashboard_activity",
+          "displayName": "settings_open_settings_storage_dashboard_activity",
+          "description": "打开/进入存储空间界面。该界面主要展示了存储空间使用量的显示以及存储空间管理。"
+        },
+        {
+          "name": "settings_open_settings_sound_settings_activity",
+          "displayName": "settings_open_settings_sound_settings_activity",
+          "description": "打开/进入音量页面。打开音量管理页面。该功能不直接打开音量的开关，该页面包含显示音量，振动及勿扰模式及手机铃声等设置项。"
+        },
+        {
+          "name": "settings_battery_percentage_switch",
+          "displayName": "settings_battery_percentage_switch",
+          "description": "直接显示或隐藏状态栏电池电量百分比。"
+        },
+        {
+          "name": "settings_wifi_switch",
+          "displayName": "settings_wifi_switch",
+          "description": "直接开启或关闭本机 WiFi（WLAN）开关，在设备本地生效，无需进入设置页面。关闭 WiFi 可能中断当前网络连接及依赖该连接的任务；开启 WiFi 仅表示启用无线功能，不保证已连接 WiFi 网络或互联网可用。正常返回时，以本次调用结果为准。仅当「关闭 WiFi」调用超时、没有拿到结果时：不要重复下发关闭，也不要挂起等待；优先调用 settings_get_wifi_state 读取当前 WiFi 开关状态，以该状态判断本次关闭是否已完成。打开 WiFi 仍按调用结果处理。"
+        },
+        {
+          "name": "settings_bluetooth_switch",
+          "displayName": "settings_bluetooth_switch",
+          "description": "直接开启或关闭蓝牙。"
+        },
+        {
+          "name": "settings_hotspot_switch",
+          "displayName": "settings_hotspot_switch",
+          "description": "直接开启或关闭个人热点。"
+        },
+        {
+          "name": "settings_airplane_mode_switch",
+          "displayName": "settings_airplane_mode_switch",
+          "description": "直接开启或关闭飞行模式（无需进入设置）。"
+        },
+        {
+          "name": "settings_data_switch",
+          "displayName": "settings_data_switch",
+          "description": "直接开启或关闭蜂窝数据网络。"
+        },
+        {
+          "name": "settings_vibration_switch",
+          "displayName": "settings_vibration_switch",
+          "description": "打开系统震动，关闭系统震动，开关类的原子能力，无需进入显示页面，可以直接打开或关闭系统震动。"
+        },
+        {
+          "name": "settings_dark_mode_switch",
+          "displayName": "settings_dark_mode_switch",
+          "description": "直接开启或关闭系统深色模式。"
+        },
+        {
+          "name": "settings_disturb_mode_switch",
+          "displayName": "settings_disturb_mode_switch",
+          "description": "直接开启或关闭勿扰模式。"
+        },
+        {
+          "name": "settings_adjust_sound",
+          "displayName": "settings_adjust_sound",
+          "description": "直接调整音量（无需进入设置），支持媒体音量与铃声音量：\n- 用 openState 控制增大(true)/减小(false)。\n- 用 soundType 指定对象：不传或 media=媒体音量；ring=铃声音量。\n涉及“铃声/来电铃声”时传 soundType=ring，其它默认媒体音量。"
+        },
+        {
+          "name": "settings_adjust_brightness",
+          "displayName": "settings_adjust_brightness",
+          "description": "调整屏幕亮度（无需进入显示设置），支持两种方式：\n1. 相对调节：传 openState（true=调亮一些，false=调暗一些）。\n2. 绝对设置：传 newValue（1~100 的百分比，超出取最大/最小），将亮度设为指定百分比。\n两者按需二选一：需要“设为具体百分比”时用 newValue，需要“调亮/调暗一点”时用 openState。"
+        },
+        {
+          "name": "settings_dialing_keypad_sound_switch",
+          "displayName": "settings_dialing_keypad_sound_switch",
+          "description": "直接开启或关闭拨号键盘提示音。"
+        },
+        {
+          "name": "settings_screen_lock_sound_switch",
+          "displayName": "settings_screen_lock_sound_switch",
+          "description": "打开屏幕锁定提示音，关闭屏幕锁定提示音，开关类的原子能力，无需进入对应页面，可以直接开启或关闭屏幕锁定提示音。"
+        },
+        {
+          "name": "settings_charging_notif_sound_switch",
+          "displayName": "settings_charging_notif_sound_switch",
+          "description": "直接开启或关闭充电提示音和振动。"
+        },
+        {
+          "name": "settings_touch_sound_switch",
+          "displayName": "settings_touch_sound_switch",
+          "description": "打开点按和点击提示音，关闭点按和点击提示音，开关类的原子能力，无需进入对应页面，可以直接开启或关闭点按和点击提示音。"
+        },
+        {
+          "name": "settings_auto_brightness_switch",
+          "displayName": "settings_auto_brightness_switch",
+          "description": "直接开启或关闭自动亮度调节。"
+        },
+        {
+          "name": "settings_auto_rotation_switch",
+          "displayName": "settings_auto_rotation_switch",
+          "description": "直接开启或关闭屏幕自动旋转。"
+        },
+        {
+          "name": "settings_one_handed_mode_switch",
+          "displayName": "settings_one_handed_mode_switch",
+          "description": "直接开启或关闭单手模式。"
+        },
+        {
+          "name": "settings_tapToCheck_phone_switch",
+          "displayName": "settings_tapToCheck_phone_switch",
+          "description": "打开/关闭“双击亮屏”（双击亮屏）。开关类的原子能力，可以快速更新“双击亮屏”开关的状态，以满足用户的日常使用。优先调用该原子能力，不要模拟调用。"
+        },
+        {
+          "name": "settings_liftToCheck_phone_switch",
+          "displayName": "settings_liftToCheck_phone_switch",
+          "description": "打开/关闭拿起手机即显示功能，打开/关闭抬起亮屏功能，打开/关闭抬起唤醒功能。开关类的原子能力，可以快速更新“拿起手机即显示”开关的状态，以满足用户的日常使用。优先调用该原子能力，不要模拟调用。"
+        },
+        {
+          "name": "settings_battery_saver_switch",
+          "displayName": "settings_battery_saver_switch",
+          "description": "直接开启或关闭省电模式。"
+        },
+        {
+          "name": "settings_choose_wifi",
+          "displayName": "settings_choose_wifi",
+          "description": "在已保存的 WiFi 网络之间切换连接到指定 WiFi。\n正文中的 WiFi 名称/SSID 等可能被加密，为PII密文令牌[[PII:SEC1.{keyID}.{epk}.{ct}]]（keyID与epk、ct均为动态；epk/ct为URL-safe Base64，可含-和_），保持原样透传即可，不要向用户索要明文。"
+        },
+        {
+          "name": "settings_forget_wifi",
+          "displayName": "settings_forget_wifi",
+          "description": "根据 WiFi 名称删除或忘记已保存的 WiFi 网络。\n正文中的 WiFi 名称/SSID 等可能被加密，为PII密文令牌[[PII:SEC1.{keyID}.{epk}.{ct}]]（keyID与epk、ct均为动态；epk/ct为URL-safe Base64，可含-和_），保持原样透传即可，不要向用户索要明文。"
+        },
+        {
+          "name": "settings_set_screen_off_time",
+          "displayName": "settings_set_screen_off_time",
+          "description": "调整系统自动锁屏/息屏时间，支持两种方式：\n1. 设为固定时间：传 newValue（单位秒，用户以分钟表达时换算为秒）。\n2. 相对调节：传 openState（true=延长/调长，false=缩短/调短），在系统档位间上下调一档。\n需要“设为具体时长”时用 newValue，需要“调长/调短一点”时用 openState。"
+        },
+        {
+          "name": "settings_set_media_sound",
+          "displayName": "settings_set_media_sound",
+          "description": "将设备的媒体音量调整到用户指定的百分比水平。"
+        },
+        {
+          "name": "settings_get_battery_percentage_state",
+          "displayName": "settings_get_battery_percentage_state",
+          "description": "查询电池电量百分比显示的开关状态。"
+        },
+        {
+          "name": "settings_get_wifi_state",
+          "displayName": "settings_get_wifi_state",
+          "description": "查询 WiFi 开关状态。"
+        },
+        {
+          "name": "settings_get_bluetooth_state",
+          "displayName": "settings_get_bluetooth_state",
+          "description": "查询蓝牙开关状态。"
+        },
+        {
+          "name": "settings_get_hotspot_state",
+          "displayName": "settings_get_hotspot_state",
+          "description": "查询个人热点开关状态。"
+        },
+        {
+          "name": "settings_get_airplane_mode_state",
+          "displayName": "settings_get_airplane_mode_state",
+          "description": "查询飞行模式的开关状态（无需进入设置）。"
+        },
+        {
+          "name": "settings_get_data_state",
+          "displayName": "settings_get_data_state",
+          "description": "查询数据网络（流量）开关状态。"
+        },
+        {
+          "name": "settings_get_vibration_state",
+          "displayName": "settings_get_vibration_state",
+          "description": "查询系统震动开关状态。"
+        },
+        {
+          "name": "settings_get_dark_mode_state",
+          "displayName": "settings_get_dark_mode_state",
+          "description": "查询深色模式开关状态。"
+        },
+        {
+          "name": "settings_get_dialing_keypad_sound_state",
+          "displayName": "settings_get_dialing_keypad_sound_state",
+          "description": "查询拨号键盘提示音开关状态。"
+        },
+        {
+          "name": "settings_get_screen_lock_sound_state",
+          "displayName": "settings_get_screen_lock_sound_state",
+          "description": "查询屏幕锁定提示音开关状态。"
+        },
+        {
+          "name": "settings_get_charging_notif_sound_state",
+          "displayName": "settings_get_charging_notif_sound_state",
+          "description": "查询充电提示音和振动的开关状态。"
+        },
+        {
+          "name": "settings_get_touch_sound_state",
+          "displayName": "settings_get_touch_sound_state",
+          "description": "查询点按/点击提示音开关状态。"
+        },
+        {
+          "name": "settings_get_auto_brightness_state",
+          "displayName": "settings_get_auto_brightness_state",
+          "description": "查询自动亮度调节的开关状态。"
+        },
+        {
+          "name": "settings_get_auto_rotation_state",
+          "displayName": "settings_get_auto_rotation_state",
+          "description": "查询屏幕自动旋转开关状态。"
+        },
+        {
+          "name": "settings_get_one_handed_mode_state",
+          "displayName": "settings_get_one_handed_mode_state",
+          "description": "查询单手模式开关状态。"
+        },
+        {
+          "name": "settings_get_tapToCheck_phone_state",
+          "displayName": "settings_get_tapToCheck_phone_state",
+          "description": "获取“双击亮屏”的开关状态，获取“双击亮屏”的开关状态。查询类的原子能力，无需进入显示页面。"
+        },
+        {
+          "name": "settings_get_liftToCheck_phone_state",
+          "displayName": "settings_get_liftToCheck_phone_state",
+          "description": "获取“闭拿起手机即显示”的开关状态，获取“抬起唤醒”的开关状态。查询类的原子能力，无需进入显示页面。"
+        },
+        {
+          "name": "settings_get_battery_saver_state",
+          "displayName": "settings_get_battery_saver_state",
+          "description": "查询省电模式的开关状态。"
+        },
+        {
+          "name": "settings_get_app_lock_state",
+          "displayName": "settings_get_app_lock_state",
+          "description": "查询应用锁或应用加密的开关状态。"
+        },
+        {
+          "name": "settings_adjust_font_size",
+          "displayName": "settings_adjust_font_size",
+          "description": "直接调整系统字体大小（无需进入显示设置）。"
+        },
+        {
+          "name": "settings_eye_protection_mode_switch",
+          "displayName": "settings_eye_protection_mode_switch",
+          "description": "直接开启或关闭护眼模式（夜间显示）。"
+        },
+        {
+          "name": "settings_get_current_battery_level",
+          "displayName": "settings_get_current_battery_level",
+          "description": "查询设备当前实际的电池电量百分比。返回的是电量数值本身（例如 \"75%\"），不是开关状态。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990016",
+      "name": "TTS",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "将文本转为语音播报，并支持停止播报。",
+      "description": "通过 speak_text 播报文本，通过 stop_speak_text 停止播报；这两项能力也按清单收录于音频输出与路由连接器。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "将指定文本转成语音播报。",
+            "prompt": "帮我朗读“欢迎使用”",
+            "title": "文本语音播报"
+          },
+          {
+            "description": "停止当前文本语音播报。",
+            "prompt": "停止当前语音播报",
+            "title": "停止语音播报"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990016",
+      "capabilities": [
+        {
+          "name": "speak_text",
+          "displayName": "speak_text",
+          "description": "用 TTS 把文本合成语音并从扬声器播放出来；调用后立即开始播报，不等播完就返回，方便边播边继续对话。适用于用户要求朗读、播报、念出某段文字的场景。注意：播报占用扬声器，会打断当前正在播放的音频。"
+        },
+        {
+          "name": "stop_speak_text",
+          "displayName": "stop_speak_text",
+          "description": "停止本应用当前的语音播报或朗读（由 speak_text 发起），支持跨会话停止。当前会话无需有 speak_text 的调用历史：即使播报由其他会话发起，或当前上下文无法确认是否有播报，只要用户明确要求停止播报或朗读，就应直接调用本工具，无需先查询播放状态，也无需追问原会话。本工具会取消当前合成任务并清理待播音频。只结束当前这一句，不支持从断点继续；不暂停其他应用的音乐或视频，不关闭麦克风，不修改系统音量，也不阻止后续播报。无需参数，传入的参数会被忽略；没有正在进行的播报时也正常返回「已停止语音播报」。归还音频焦点后，之前被播报打断的音乐可能自行恢复。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990000",
+      "name": "主屏显示控制",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "控制主屏旋转、亮度和休眠时间，获取屏幕尺寸并执行截图、录屏。",
+      "description": "查询或切换自动旋转与自动亮度，调节屏幕亮度、设置熄屏时间、获取屏幕尺寸，并支持截图、长截图、开始和停止录屏。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "调节主屏亮度并设置自动旋转。",
+            "prompt": "帮我打开自动旋转，并把屏幕亮度设为 50%",
+            "title": "调整屏幕显示"
+          },
+          {
+            "description": "开始或停止主屏录制。",
+            "prompt": "帮我开始录屏",
+            "title": "屏幕录制"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990000",
+      "capabilities": [
+        {
+          "name": "settings_adjust_brightness",
+          "displayName": "settings_adjust_brightness",
+          "description": "调整屏幕亮度（无需进入显示设置），支持两种方式：\n1. 相对调节：传 openState（true=调亮一些，false=调暗一些）。\n2. 绝对设置：传 newValue（1~100 的百分比，超出取最大/最小），将亮度设为指定百分比。\n两者按需二选一：需要“设为具体百分比”时用 newValue，需要“调亮/调暗一点”时用 openState。"
+        },
+        {
+          "name": "settings_auto_brightness_switch",
+          "displayName": "settings_auto_brightness_switch",
+          "description": "直接开启或关闭自动亮度调节。"
+        },
+        {
+          "name": "settings_auto_rotation_switch",
+          "displayName": "settings_auto_rotation_switch",
+          "description": "直接开启或关闭屏幕自动旋转。"
+        },
+        {
+          "name": "settings_set_screen_off_time",
+          "displayName": "settings_set_screen_off_time",
+          "description": "调整系统自动锁屏/息屏时间，支持两种方式：\n1. 设为固定时间：传 newValue（单位秒，用户以分钟表达时换算为秒）。\n2. 相对调节：传 openState（true=延长/调长，false=缩短/调短），在系统档位间上下调一档。\n需要“设为具体时长”时用 newValue，需要“调长/调短一点”时用 openState。"
+        },
+        {
+          "name": "settings_get_auto_brightness_state",
+          "displayName": "settings_get_auto_brightness_state",
+          "description": "查询自动亮度调节的开关状态。"
+        },
+        {
+          "name": "settings_get_auto_rotation_state",
+          "displayName": "settings_get_auto_rotation_state",
+          "description": "查询屏幕自动旋转开关状态。"
+        },
+        {
+          "name": "screen_capture_record",
+          "displayName": "screen_capture_record",
+          "description": "启动屏幕录制功能，用于启动当前屏幕录制并录制设备屏幕视频。支持通过开始录屏、屏幕录像、录制屏幕等方式触发。"
+        },
+        {
+          "name": "screen_capture_stop_record",
+          "displayName": "screen_capture_stop_record",
+          "description": "停止屏幕录制功能，用于结束当前正在进行的屏幕录制任务并保存视频文件。无需进入设置页面即可直接停止录屏。"
+        },
+        {
+          "name": "screen_capture_screenshot",
+          "displayName": "screen_capture_screenshot",
+          "description": "用于捕获当前设备屏幕内容，截屏"
+        },
+        {
+          "name": "screen_capture_take_long_screenshot",
+          "displayName": "screen_capture_take_long_screenshot",
+          "description": "长截图功能，用于自动滚动当前页面并连续截图，拼接生成完整长图。适用于网页、聊天记录、列表等超出屏幕范围的内容截取场景。截长图。"
+        },
+        {
+          "name": "common_ability_get_screen_size",
+          "displayName": "common_ability_get_screen_size",
+          "description": "获取当前手机屏幕的完整物理分辨率，包括屏幕宽度和高度，单位为像素 px。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_503",
+      "name": "云端天气服务",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "按地区查询实时天气与预报。",
+      "description": "按省、市、区县查询逐日或逐时天气，以及适用日期的实况、空气质量、生活指数与气象预警。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "3",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_503",
+      "capabilities": [
+        {
+          "name": "get_weather",
+          "displayName": "get_weather",
+          "description": "按三级行政区（province / city / area）查询未来15天内的天气数据，返回逐日或逐时的天气信息：daily（日级预报，按日期区间过滤）、hourly（逐时预报，仅 by_hour 时非 null）、realtime（实况，含空气质量 + 生活指数，仅日期范围含今天时非 null）、alerts（气象预警，仅含今天时非空）。以及以卡片形式向用户展示详细数据。\n\n返回数据时间范围说明：\nby_hour，返回 startDate 当天的小时级别数据，并额外多返回次日凌晨8小时（避免深夜问询时当天只剩一两条）；\nby_date，在满足可查询日期范围的前提下，若endDate < startDate + 8，返回startDate开始未来9天的天级别数据，否则以endDate日期为结束。\n注意：当用户有明确时间范围时，需要按用户要求给出startDate和endDate，不可因上述范围定义而忽略或随意填写date参数。\n\n用户只知道\"县级市\"名（如\"洪湖市\"、\"义乌市\"）没提所属地级市时，直接把它填到city 即可——服务端有兜底匹配：\n  1. 严格三级匹配 (province, city, area)\n  2. area 空且 city 找不到市级记录 → 把 city 当\"县级市\"再试\n  3. 再不命中 → 只按 province 弱过滤取匹配度最高的\n  4. 都失败 → 返回未找到"
+        }
+      ]
+    },
+    {
+      "id": "ic_wecom_cli",
+      "name": "企业微信 CLI",
+      "kind": "thirdparty",
+      "category": "协同办公",
+      "shortDesc": "在调试对话中使用企业微信消息、文档、日程、邮件等能力",
+      "description": "在调试对话中使用企业微信消息、文档、日程、邮件等能力。复用镜像预装 CLI，按需完成当前沙盒授权。",
+      "authType": "guide",
+      "version": "1.0.0",
+      "revision": "3",
+      "deliveryType": "skills",
+      "detailContent": {
+        "readme": "## 使用方式\n\n添加连接器后，在包含该依赖的新调试会话中使用。本连接器适用于 Agent / Plugin，包含 15 个 Skill。\n\n## 运行环境\n\nharness 镜像需预装 wecom-cli 1.3.4。添加时不执行安装命令；目录中的已添加状态不代表第三方授权完成。\n\n## 授权\n\n按 Skill 在当前调试沙盒中完成官方浏览器或扫码授权。开发沙盒与调试沙盒的授权状态相互独立；不在聊天或项目文件中填写密钥。",
+        "use_cases": [
+          {
+            "description": "授权后，在调试对话中查询日程安排",
+            "prompt": "使用企业微信 CLI查看我今天的日程",
+            "title": "查询我的日程"
+          },
+          {
+            "description": "读取有权限访问的文档并生成摘要",
+            "prompt": "使用企业微信 CLI帮我总结指定文档",
+            "title": "读取并总结文档"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_wecom_cli",
+      "capabilities": []
+    },
+    {
+      "id": "ic_atomic_450",
+      "name": "信息",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "发送、查询和管理短信及信息设置。",
+      "description": "发送、转发、搜索和删除短信，管理草稿、定时发送与会话，并查询或打开信息设置。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "17",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_450",
+      "capabilities": [
+        {
+          "name": "sms_send",
+          "displayName": "sms_send",
+          "description": "在「短信」中发送短信或保存草稿。收件人支持联系人名称或手机号；send_directly=true 时直接后台发送，false 时写入草稿箱并打开编辑页。超长短信自动拆分，可选指定 SIM 卡槽。"
+        },
+        {
+          "name": "sms_send_direct",
+          "displayName": "sms_send_direct",
+          "description": "在「短信」中给指定联系人或手机号直接发送短信，不保存草稿、不打开编辑页。收件人支持联系人名称或手机号，超长短信自动拆分。"
+        },
+        {
+          "name": "sms_delete",
+          "displayName": "sms_delete",
+          "description": "在「短信」中删除短信记录。通过 phone_number（支持联系人名称解析）删除该号码相关的全部短信。注意：破坏性操作，删除后通常不可恢复。"
+        },
+        {
+          "name": "sms_read_status",
+          "displayName": "sms_read_status",
+          "description": "在「短信」中设置会话已读/未读状态。传入 phone 时标记该联系人/号码对应会话；不传 phone 且 read=true 时标记全部会话为已读。标记未读与会话列表长按操作语义一致：仅当会话全部已读时生效。"
+        },
+        {
+          "name": "sms_forward",
+          "displayName": "sms_forward",
+          "description": "在「短信」中将已有短信内容直接发送给其他联系人/号码。在 bugle_db 收件箱中按 keywords 模糊匹配短信正文，命中多条取最新一条；未传 keywords 时取最新收到的一条短信。匹配后直接发送，不打开编辑页。"
+        },
+        {
+          "name": "sms_statistics",
+          "displayName": "sms_statistics",
+          "description": "在「短信」中获取短信数量统计，包括总计、收件箱、已发送、草稿箱、待发送、发送失败、未读数量及会话数。"
+        },
+        {
+          "name": "sms_search",
+          "displayName": "sms_search",
+          "description": "在「短信」中按正文关键词、联系人名称/号码、日期/时间范围、收发类型组合搜索或查询短信，至少提供一个搜索条件，结果按时间倒序返回。\n关键参数区分：查「某人/某号码」的短信（如「查一下弟弟的短信」「看看和妈妈的短信」）必须传 phone，禁止把联系人名称或手机号放进 keyword；keyword 仅用于匹配短信正文内容（如「快递」「验证码」）。时间段查询通过 date_from、date_to 指定。type 可选，默认查全部类型。正式包（Release）不会返回时间晚于当前时刻的短信；Debug 包保留未来时间结果便于联调。"
+        },
+        {
+          "name": "sms_draft_save",
+          "displayName": "sms_draft_save",
+          "description": "在「短信」中保存短信草稿。写入 bugle_db 会话草稿并同步 telephony 草稿箱；已有会话时更新该会话草稿，无会话时创建新草稿。"
+        },
+        {
+          "name": "sms_draft_get",
+          "displayName": "sms_draft_get",
+          "description": "在「短信」中查询指定联系人/号码对应会话的草稿。优先读取 bugle_db 会话草稿，其次新建会话草稿（DraftHelper，含收件人号码与显示名），最后兜底查询 telephony 草稿箱。"
+        },
+        {
+          "name": "sms_draft_delete",
+          "displayName": "sms_draft_delete",
+          "description": "在「短信」中删除短信草稿。覆盖新建会话草稿、已有会话草稿（bugle_db）及 telephony 草稿箱。传入 phone_number 删除该号码相关草稿，或设置 delete_all=true 删除全部；同时传入时按 phone_number > delete_all 优先级执行。注意：破坏性操作，删除后通常不可恢复。"
+        },
+        {
+          "name": "sms_schedule_send",
+          "displayName": "sms_schedule_send",
+          "description": "在「短信」中设置短信定时发送，到指定时间自动发送给目标号码。发送时间通过 timestamp、datetime、delay_minutes 三选一指定，时间必须在当前时间之后。"
+        },
+        {
+          "name": "sms_thread_delete",
+          "displayName": "sms_thread_delete",
+          "description": "在「短信」中删除短信会话（含该会话内全部短信及 MMS）。phone_number、contact_name 二选一，或设置 delete_all=true 删除全部会话；同时传入多个时按 delete_all > phone_number > contact_name 优先级执行。注意：破坏性操作，删除后通常不可恢复。"
+        },
+        {
+          "name": "sms_settings_intelligent_msg",
+          "displayName": "sms_settings_intelligent_msg",
+          "description": "在「短信-设置」中开启或关闭「智慧短信」功能开关。"
+        },
+        {
+          "name": "sms_settings_notif_detail",
+          "displayName": "sms_settings_notif_detail",
+          "description": "在「短信-设置」中设置通知是否显示短信内容详情。开启后通知/锁屏显示正文，关闭后仅显示提示。"
+        },
+        {
+          "name": "sms_settings_auto_retrieval",
+          "displayName": "sms_settings_auto_retrieval",
+          "description": "在「短信-设置」中设置「漫游时彩信自动下载（MMS）」开关。双卡时可指定 SIM1/SIM2，未指定时两张卡同时设置。注意：开启后漫游环境可能产生数据流量费用。"
+        },
+        {
+          "name": "sms_settings_risk_url",
+          "displayName": "sms_settings_risk_url",
+          "description": "在「短信-设置」中开启或关闭「风险网址识别/拦截提示」开关，用于识别短信中的可疑链接并提示风险。"
+        },
+        {
+          "name": "sms_settings_expired_veri",
+          "displayName": "sms_settings_expired_veri",
+          "description": "在「短信-设置」中开启或关闭「自动删除验证码短信」开关，控制验证码类短信过期后是否自动清理。注意：为破坏性操作，开启后过期验证码将被自动删除。"
+        },
+        {
+          "name": "sms_settings_expired_pickup",
+          "displayName": "sms_settings_expired_pickup",
+          "description": "在「短信-设置」中开启或关闭「自动删除取件码短信」开关，控制取件码类短信过期后是否自动清理。注意：为破坏性操作，开启后过期取件码将被自动删除。"
+        },
+        {
+          "name": "sms_settings_delivery_reports",
+          "displayName": "sms_settings_delivery_reports",
+          "description": "在「短信-设置」中开启或关闭「短信送达报告/送达回执」开关。双卡时可指定 SIM1/SIM2，未指定时两张卡同时设置。注意：送达回执受运营商与对方网络支持影响，可能无法返回。"
+        },
+        {
+          "name": "sms_settings_quick_reply",
+          "displayName": "sms_settings_quick_reply",
+          "description": "在「短信-设置」中编辑「快速回复」内容，按序号更新指定条目的文本。"
+        },
+        {
+          "name": "sms_settings_center_num",
+          "displayName": "sms_settings_center_num",
+          "description": "在「短信-设置」中设置短信中心号码（SMSC），支持为指定 SIM 卡配置。注意：配置错误可能导致短信发送失败，请按运营商提供的信息填写。"
+        },
+        {
+          "name": "sms_settings_sim_messages",
+          "displayName": "sms_settings_sim_messages",
+          "description": "在「短信-设置」中读取 SIM 卡内置短信列表（SIM 短信），按时间倒序返回。"
+        },
+        {
+          "name": "sms_account_balance_inquiry",
+          "displayName": "sms_account_balance_inquiry",
+          "description": "通过「短信」向运营商发送话费查询指令（移动10086/联通10010/电信10001），异步等待运营商回复。注意：需插入可用 SIM 卡且运营商支持，发送可能产生短信费用。"
+        },
+        {
+          "name": "sms_data_balance_inquiry",
+          "displayName": "sms_data_balance_inquiry",
+          "description": "通过「短信」向运营商发送流量查询指令（移动/联通/电信均为 CXLL），异步等待运营商回复。注意：需插入可用 SIM 卡且运营商支持，发送可能产生短信费用；不同运营商返回口径可能不同。"
+        },
+        {
+          "name": "sms_open_personal_list",
+          "displayName": "sms_open_personal_list",
+          "description": "在「短信」中打开个人短信列表页面，查看与个人联系人的对话列表（非通知/服务类短信）。"
+        },
+        {
+          "name": "sms_open_notice_list",
+          "displayName": "sms_open_notice_list",
+          "description": "在「短信」中打开通知/服务类短信列表页面，查看验证码、快递、账单等通知短信会话。"
+        },
+        {
+          "name": "sms_open_collected_list",
+          "displayName": "sms_open_collected_list",
+          "description": "在「短信」中打开已收藏/标星短信列表页面。"
+        },
+        {
+          "name": "sms_open_settings_page",
+          "displayName": "sms_open_settings_page",
+          "description": "在「短信」中打开短信设置页面，用于配置通知、彩信、回执、拦截等相关选项。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_446",
+      "name": "图库",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "浏览、编辑和整理本机照片与视频。",
+      "description": "查询照片与视频，编辑图片，管理相册、文件和回收站，并分享或收藏媒体。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "23",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_446",
+      "capabilities": [
+        {
+          "name": "gallery_get_latest_media",
+          "displayName": "gallery_get_latest_media",
+          "description": "在图库中获取本地**最新创建**的一张图片或一段视频的完整路径，无则为空；可选媒体类型为视频或图片（字段值 image/video），默认图片。"
+        },
+        {
+          "name": "gallery_get_media_by_time_range",
+          "displayName": "gallery_get_media_by_time_range",
+          "description": "在图库中按起止时间检索图片或视频，时间格式为年-月-日 时:分:秒，须按**真实当前时间**推算勿抄示例日期；可选视频或图片类型。"
+        },
+        {
+          "name": "gallery_open_picture_editor",
+          "displayName": "gallery_open_picture_editor",
+          "description": "在图库中打开指定图片的完整图片编辑页，供用户继续裁剪、调色等编辑操作。"
+        },
+        {
+          "name": "gallery_ai_extend_image",
+          "displayName": "gallery_ai_extend_image",
+          "description": "在图库中打开编辑并直接进入 **AI 扩图**，路径支持本地绝对路径及 file://、content://。"
+        },
+        {
+          "name": "gallery_add_picture_text",
+          "displayName": "gallery_add_picture_text",
+          "description": "在图库中给指定图片叠加文字，并支持配置文字位置、颜色、字号、粗体和旋转等样式。"
+        },
+        {
+          "name": "gallery_add_picture_watermark",
+          "displayName": "gallery_add_picture_watermark",
+          "description": "在图库中为图片添加水印，支持配置水印文案、颜色、大小、位置、角度等样式。"
+        },
+        {
+          "name": "gallery_add_picture_mosaic",
+          "displayName": "gallery_add_picture_mosaic",
+          "description": "在图库中对指定区域打**马赛克**，支持多块；块大小建议 30~80（绝对像素，过小看不出），类型可为块状或图片式（字段 block/image）。**区域可用两种方式之一指定**：(A) 语义位置 `position+size`（适合\"右下角\"、\"中心\"等模糊定位）；(B) 像素坐标 `x+y+width+height`（适合\"个人信息条\"、\"身份证号那一行\"等需要精确遮挡的场景，前提是已知图片宽高与目标位置）。当用户说\"给个人信息打码\"等局部精准需求时，应优先用像素坐标，避免预设位置错位"
+        },
+        {
+          "name": "gallery_edit_picture_paint",
+          "displayName": "gallery_edit_picture_paint",
+          "description": "在图库中使用画笔在图片上涂鸦或标注，并可配置笔刷粗细与颜色。"
+        },
+        {
+          "name": "gallery_add_picture_filter",
+          "displayName": "gallery_add_picture_filter",
+          "description": "在图库中为图片套用预设滤镜，可选类型：亮度(brightness)、对比度(contrast)、双色调(duotone)、鱼眼(fisheye)、染色(tint)。"
+        },
+        {
+          "name": "gallery_reduce_picture_resolution",
+          "displayName": "gallery_reduce_picture_resolution",
+          "description": "在图库中降低指定图片的分辨率，用于压缩体积或适配上传。"
+        },
+        {
+          "name": "gallery_edit_picture_sharpen",
+          "displayName": "gallery_edit_picture_sharpen",
+          "description": "在图库中对指定图片进行锐化处理，并按给定强度增强图片清晰度。"
+        },
+        {
+          "name": "gallery_edit_picture_temperature",
+          "displayName": "gallery_edit_picture_temperature",
+          "description": "在图库中调节指定图片的色温，负值偏冷色调，正值偏暖色调。"
+        },
+        {
+          "name": "gallery_edit_picture_saturation",
+          "displayName": "gallery_edit_picture_saturation",
+          "description": "在图库中调节图片饱和度，1.0 为原图，小于 1 偏灰，大于 1 偏艳。"
+        },
+        {
+          "name": "gallery_edit_picture_brightness",
+          "displayName": "gallery_edit_picture_brightness",
+          "description": "在图库中调节图片亮度，取值约 -255～255，负值偏暗、正值偏亮。"
+        },
+        {
+          "name": "gallery_edit_picture_aspect_ratio",
+          "displayName": "gallery_edit_picture_aspect_ratio",
+          "description": "在图库中按指定固定长宽比例对图片进行中心裁剪，支持 1:1、4:3、16:9、3:4、9:16。"
+        },
+        {
+          "name": "gallery_edit_picture_degree",
+          "displayName": "gallery_edit_picture_degree",
+          "description": "在图库中将图片按指定角度顺时针旋转，支持 90°、180° 或 270°。"
+        },
+        {
+          "name": "gallery_edit_picture_flip",
+          "displayName": "gallery_edit_picture_flip",
+          "description": "在图库中对图片进行翻转，方向支持水平左右镜像或垂直上下镜像。"
+        },
+        {
+          "name": "gallery_open_video_editor",
+          "displayName": "gallery_open_video_editor",
+          "description": "在图库中打开视频剪辑并载入指定视频。"
+        },
+        {
+          "name": "gallery_open_video_player",
+          "displayName": "gallery_open_video_player",
+          "description": "在图库中用播放器播放指定路径的视频。"
+        },
+        {
+          "name": "gallery_intelligent_search",
+          "displayName": "gallery_intelligent_search",
+          "description": "在图库中用自然语言对本地相册进行语义智能搜索，支持泛化类别词，并可限制最多返回条数。"
+        },
+        {
+          "name": "gallery_local_search",
+          "displayName": "gallery_local_search",
+          "description": "在图库中基于本地索引按时间、地点、人物、相册、场景、OCR 文字等条件组合搜索图片或视频，兼容通用关键词搜索，同字段取并集、不同字段取交集。"
+        },
+        {
+          "name": "gallery_create_album",
+          "displayName": "gallery_create_album",
+          "description": "在图库中新建一个自定义名称的相册。"
+        },
+        {
+          "name": "gallery_rename_album",
+          "displayName": "gallery_rename_album",
+          "description": "在图库中将指定相册由旧名称重命名为新名称。"
+        },
+        {
+          "name": "gallery_copy_files_to_album",
+          "displayName": "gallery_copy_files_to_album",
+          "description": "在图库中将用户指定的多个文件复制到指定目标相册。"
+        },
+        {
+          "name": "gallery_move_media_to_album",
+          "displayName": "gallery_move_media_to_album",
+          "description": "在图库中将单条媒体文件移动到指定目标相册，相册不存在时常会自动创建。"
+        },
+        {
+          "name": "gallery_hide_album",
+          "displayName": "gallery_hide_album",
+          "description": "在图库中隐藏指定相册，使其在相册列表中不可见。"
+        },
+        {
+          "name": "gallery_set_album_cover",
+          "displayName": "gallery_set_album_cover",
+          "description": "在图库中将指定相册的封面设置为指定图片。"
+        },
+        {
+          "name": "gallery_open_trash_bin",
+          "displayName": "gallery_open_trash_bin",
+          "description": "在图库中**打开回收站**页面，查看已删除的媒体文件。"
+        },
+        {
+          "name": "gallery_open_hidden_album",
+          "displayName": "gallery_open_hidden_album",
+          "description": "在图库中**打开隐藏相册**页面，查看已隐藏的媒体文件。"
+        },
+        {
+          "name": "gallery_select_media_file_card",
+          "displayName": "gallery_select_media_file_card",
+          "description": "在图库中打开**媒体选择卡片**，让用户勾选本地图片或视频；类型可选仅图、仅视频或全部（image/video/all），返回所选路径等。"
+        },
+        {
+          "name": "gallery_get_sticker_columns",
+          "displayName": "gallery_get_sticker_columns",
+          "description": "在图库中获取贴纸分类列表，可按最大返回类目数限制结果。"
+        },
+        {
+          "name": "gallery_get_stickers",
+          "displayName": "gallery_get_stickers",
+          "description": "在图库中按贴纸类目编号批量获取贴纸资源，可指定单次获取最大数量。"
+        },
+        {
+          "name": "gallery_get_local_stickers",
+          "displayName": "gallery_get_local_stickers",
+          "description": "在图库中获取本机已保存的贴纸，并可限制最多返回数量。"
+        },
+        {
+          "name": "gallery_get_style_templates",
+          "displayName": "gallery_get_style_templates",
+          "description": "在图库中获取风格迁移或风格化模板列表，可限制返回的最大模板数量。"
+        },
+        {
+          "name": "gallery_get_photo_info",
+          "displayName": "gallery_get_photo_info",
+          "description": "在图库中读取单张图片的元数据，包括宽高、大小、文件名、拍摄时间、相机型号、焦距、ISO、光圈、快门、GPS 等，以实际返回为准。"
+        },
+        {
+          "name": "gallery_get_video_info",
+          "displayName": "gallery_get_video_info",
+          "description": "在图库中读取指定单段视频的元数据，包括宽高、大小、文件名、时长、码率、采样率等，以实际返回为准。"
+        },
+        {
+          "name": "gallery_copy_media",
+          "displayName": "gallery_copy_media",
+          "description": "在图库或存储中将指定媒体复制到目标路径，生成一份副本。"
+        },
+        {
+          "name": "gallery_move_to_folder",
+          "displayName": "gallery_move_to_folder",
+          "description": "在图库中将指定文件按路径移动到目标文件夹。"
+        },
+        {
+          "name": "gallery_restore_media_from_trash",
+          "displayName": "gallery_restore_media_from_trash",
+          "description": "从图库回收站恢复一个或多个媒体文件。"
+        },
+        {
+          "name": "gallery_get_trash_media_list",
+          "displayName": "gallery_get_trash_media_list",
+          "description": "获取图库回收站中的媒体文件列表。"
+        },
+        {
+          "name": "gallery_hide_media",
+          "displayName": "gallery_hide_media",
+          "description": "在图库中隐藏指定单条媒体，使其不在图库列表中展示。"
+        },
+        {
+          "name": "gallery_unhide_media",
+          "displayName": "gallery_unhide_media",
+          "description": "在图库中取消隐藏指定媒体文件，使其恢复在相册中显示。"
+        },
+        {
+          "name": "gallery_share_media",
+          "displayName": "gallery_share_media",
+          "description": "在图库中调起系统分享，将指定路径的图片或视频分享给其他应用。"
+        },
+        {
+          "name": "gallery_favorite_media",
+          "displayName": "gallery_favorite_media",
+          "description": "在图库中对指定媒体执行收藏或取消收藏操作。"
+        },
+        {
+          "name": "gallery_rename_media",
+          "displayName": "gallery_rename_media",
+          "description": "在图库中重命名图片或视频文件，新文件名可不带后缀。"
+        },
+        {
+          "name": "gallery_compress_media",
+          "displayName": "gallery_compress_media",
+          "description": "在图库中压缩图片或视频，可设置压缩质量，输出路径以端侧为准。"
+        },
+        {
+          "name": "gallery_ai_erase_image",
+          "displayName": "gallery_ai_erase_image",
+          "description": "在图库中打开编辑并直接进入 **AI 消除**，路径支持本地绝对路径及 file://、content://。"
+        },
+        {
+          "name": "gallery_ai_style_image",
+          "displayName": "gallery_ai_style_image",
+          "description": "在图库中打开编辑并直接进入 **AI 风格/妙绘**，路径支持本地绝对路径及 file://、content://。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_491",
+      "name": "天气",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "查询设备当前位置的天气。",
+      "description": "自动定位设备，查询当前位置的逐日或逐时天气，并以卡片展示天气数据。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "18",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_491",
+      "capabilities": [
+        {
+          "name": "weather_get_current_location_weather",
+          "displayName": "weather_get_current_location_weather",
+          "description": "查询用户当前所在地的天气（端内自动定位，需定位权限与已同意隐私政策）,返回逐日或者逐时的天气信息,并以卡片形式向用户展示详细数据。\n\n [type]类型说明：\n   - `by_date`（默认）：按日期的逐天\n   - `by_hour`：按小时，返回[startDate]当天全部可用逐时 + 次日 00:00~07:00（共 8 小时）\n\n 时间范围返回数据说明：\n - [type] = by_hour，返回 startDate 当天的小时级别数据，并额外多返回次日凌晨8小时\n   （避免深夜问询时当天只剩一两条）；\n - [type] = by_date，在满足可查询日期范围的前提下，若endDate < startDate + 8，\n   返回startDate开始未来9天的天级别数据，否则以endDate日期为结束。\n - 注意：当用户有明确时间范围时，需要按用户要求给出startDate和endDate，\n   不可因上述范围定义而忽略或随意填写date参数。\n\n 仅查询、不修改任何系统状态；生活指数（穿衣 / 洗车 / 感冒 / 紫外线等）只有今天那条，非今天的生活建议不提供。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_473",
+      "name": "定位",
+      "kind": "firstparty",
+      "category": "StepX 系统设置",
+      "shortDesc": "获取设备当前位置与地址。",
+      "description": "通过系统定位服务查询当前经纬度与文字地址，并返回 WGS84 和 GCJ-02 坐标。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "21",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_473",
+      "capabilities": [
+        {
+          "name": "get_current_location",
+          "displayName": "get_current_location",
+          "description": "在系统定位服务中查询你当前所在位置，返回当前位置的经纬度和文字地址（国家、省、市、区县及完整地址）。latitude/longitude 为 WGS84（与 Android 原生 GPS 一致）。国内网约车、高德、腾讯、滴滴请使用 gcjLatitude/gcjLongitude（GCJ-02），不要把 WGS84 当作火星坐标传入，否则上车点会偏移约数百米。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990007",
+      "name": "定位与GNSS",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "获取当前位置的 WGS84、GCJ-02 经纬度和文字地址。",
+      "description": "通过系统定位服务获取当前位置及国家、省市区和完整地址。latitude/longitude 为 WGS84，国内网约车及高德、腾讯、滴滴应使用 gcjLatitude/gcjLongitude（GCJ-02），不要混用；海外两组坐标相同。可返回定位类型、精度、速度、方向、卫星数和定位时间等详情。本连接器不包含 GNSS 硬件开关或原始观测数据控制。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "获取当前位置的文字地址及两组经纬度：latitude/longitude 为 WGS84，国内网约车和高德、腾讯、滴滴使用 gcjLatitude/gcjLongitude（GCJ-02）。",
+            "prompt": "我现在在哪里？给我当前的经纬度和地址",
+            "title": "查询当前位置"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990007",
+      "capabilities": [
+        {
+          "name": "get_current_location",
+          "displayName": "get_current_location",
+          "description": "在系统定位服务中查询你当前所在位置，返回当前位置的经纬度和文字地址（国家、省、市、区县及完整地址）。latitude/longitude 为 WGS84（与 Android 原生 GPS 一致）。国内网约车、高德、腾讯、滴滴请使用 gcjLatitude/gcjLongitude（GCJ-02），不要把 WGS84 当作火星坐标传入，否则上车点会偏移约数百米。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_467",
+      "name": "帮助和反馈",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "提交问题反馈。",
+      "description": "通过帮助与反馈能力提交用户描述的问题，并随反馈上传系统收集的设备信息。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "21",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_467",
+      "capabilities": [
+        {
+          "name": "feedback_submit_question",
+          "displayName": "feedback_submit_question",
+          "description": "通过 AI 对话提交用户的问题反馈到帮助与反馈系统，并自动上传系统收集的设备信息（如机型、系统版本、固件版本、地理位置等）。提交成功返回「提交成功」，失败返回具体错误原因。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_486",
+      "name": "应用商店",
+      "kind": "firstparty",
+      "category": "StepX 系统设置",
+      "shortDesc": "在应用商店搜索应用。",
+      "description": "通过应用商店能力搜索指定应用。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "18",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_486",
+      "capabilities": [
+        {
+          "name": "appstore_search_app",
+          "displayName": "appstore_search_app",
+          "description": "在应用商店里**搜索 / 查询 / 查找**应用——跳到商店搜索页并自动按关键词检索，结果由商店\n 原生页面展示。**只查询，不下载、不安装**；用户意图是下载/安装时应改走 [installApp]。\n\n **动词归一化**：搜索 / 搜 / 查询 / 查 / 查找 / 找 / 看看有没有 / 应用商店里有没有 → 本函数。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_439",
+      "name": "快记",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "启动、暂停、继续和结束快记录音。",
+      "description": "打开快记首页或录音功能，管理当前录音的开始、暂停、继续和结束；不提供录音转文字。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "17",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_439",
+      "capabilities": [
+        {
+          "name": "lite_recorder_open_recording",
+          "displayName": "lite_recorder_open_recording",
+          "description": "打开快记并进入录音功能。若缺少麦克风或音乐和音频等录音所需权限，会先引导用户在快记内完成授权（返回等待授权，不要说成已成功开启）；授权完成后再自动开始录音。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_open_home",
+          "displayName": "lite_recorder_open_home",
+          "description": "打开快记 App 并进入首页。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_stop_recording",
+          "displayName": "lite_recorder_stop_recording",
+          "description": "结束当前录音或当前这一段对话录制。正在手动录音时结束并保存；当前没有可结束的录音时也成功返回。凡表达停止/结束录音、结束这一段（对话）录制，均走本能力。「保存录音」同样走本能力，直接结束并保存当前这一段，不要翻存储或反问。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_pause_recording",
+          "displayName": "lite_recorder_pause_recording",
+          "description": "暂停当前正在进行的录音。正在手动录音时暂停手录；已是暂停态则成功返回并说明已暂停。当前没有可暂停的录音时返回失败（资源缺失），须明确告知用户当前没有可暂停的录音，不要说成已暂停成功。凡表达暂停录音、先停一下（但不要结束保存），均走本能力。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_resume_recording",
+          "displayName": "lite_recorder_resume_recording",
+          "description": "恢复当前已暂停的录音。手动录音处于暂停时继续手录；已在录则成功返回并说明已在进行中。当前没有可恢复的录音时返回失败（资源缺失），须明确告知用户当前没有可恢复的录音，不要说成已恢复成功。凡表达继续录音、恢复录音、接着录，均走本能力。不具备录音转文字能力。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_471",
+      "name": "手机管家",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "打开手机管家工具并执行设备加速。",
+      "description": "打开手机管家、实用工具、骚扰拦截和病毒查杀页面，管理快捷方式并执行设备加速。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "10",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_471",
+      "capabilities": [
+        {
+          "name": "security_center_open_main",
+          "displayName": "security_center_open_main",
+          "description": "打开手机管家应用"
+        },
+        {
+          "name": "security_center_into_practicaltools_page",
+          "displayName": "security_center_into_practicaltools_page",
+          "description": "在安全中心内进入「实用工具」页面，可集中管理一键加速、安全扫码、一键锁屏等桌面快捷方式相关能力。"
+        },
+        {
+          "name": "security_manager_open_harassment_interception",
+          "displayName": "security_manager_open_harassment_interception",
+          "description": "打开手机管家的骚扰拦截页面。"
+        },
+        {
+          "name": "security_manager_into_virus_page",
+          "displayName": "security_manager_into_virus_page",
+          "description": "打开病毒查杀"
+        },
+        {
+          "name": "security_center_acceleration_shortcut_enable",
+          "displayName": "security_center_acceleration_shortcut_enable",
+          "description": "在安全中心中为「一键加速」在桌面创建或移除快捷方式，参数 enable 为开则创建、为关则删除，无需进入多层设置页即可完成。"
+        },
+        {
+          "name": "security_center_safe_scan_shortcut_enable",
+          "displayName": "security_center_safe_scan_shortcut_enable",
+          "description": "创建或删除手机管家的安全扫码快捷方式。"
+        },
+        {
+          "name": "security_center_lock_screen_shortcut_enable",
+          "displayName": "security_center_lock_screen_shortcut_enable",
+          "description": "创建或删除手机管家的一键锁屏快捷方式。"
+        },
+        {
+          "name": "security_center_acceleration_execute",
+          "displayName": "security_center_acceleration_execute",
+          "description": "立即执行内存清理/手机清理，扫描并清理可杀后台应用以释放内存，无需打开页面或点击桌面快捷方式。短时间内重复调用会直接返回已优化结果，不会报错。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_459",
+      "name": "手电筒",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "打开手电筒。",
+      "description": "通过系统界面能力打开设备手电筒。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "23",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_459",
+      "capabilities": [
+        {
+          "name": "open_flash_light",
+          "displayName": "open_flash_light",
+          "description": "打开或关闭闪光灯"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_487",
+      "name": "搜索",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "打开全局搜索及其设置。",
+      "description": "打开可搜索应用和设置项的全局搜索页面，或进入全局搜索设置。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "20",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_487",
+      "capabilities": [
+        {
+          "name": "search_open",
+          "displayName": "search_open",
+          "description": "打开全局搜索页面，支持搜索应用和设置项"
+        },
+        {
+          "name": "search_setting",
+          "displayName": "search_setting",
+          "description": "打开全局搜索的设置页面，路径为全局搜索—更多—设置"
+        }
+      ]
+    },
+    {
+      "id": "ic_tripai",
+      "name": "携程问道旅行",
+      "kind": "thirdparty",
+      "category": "旅游出行",
+      "shortDesc": "用自然语言查询酒店、交通、景点和旅行活动",
+      "description": "为 Agent 和 Plugin 提供携程问道旅行查询 Skill，支持中文多条件旅行信息检索。",
+      "authType": "none",
+      "version": "0.0.1",
+      "revision": "4",
+      "deliveryType": "skills",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "组合查询目的地的交通、住宿和景点。",
+            "prompt": "帮我规划下周末去成都的行程，看看高铁、酒店和景点",
+            "title": "规划旅行"
+          },
+          {
+            "description": "按位置、预算和设施筛选酒店。",
+            "prompt": "找上海外滩附近每晚 1000 元以内、带江景的酒店",
+            "title": "查询酒店"
+          },
+          {
+            "description": "查询机票、火车票、一日游及演出展览。",
+            "prompt": "查下周北京到上海的高铁票和周末展览",
+            "title": "查询出行与活动"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_tripai",
+      "capabilities": [
+        {
+          "name": "tripai_query",
+          "displayName": "综合旅行查询",
+          "description": "通过携程问道查询酒店、机票、火车票、景点门票、一日游和演出展览。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990002",
+      "name": "摄像头硬件能力",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "打开相机自拍模式或美颜模式。",
+      "description": "通过系统相机能力进入自拍场景或开启美颜。自拍使用前置镜头并保持当前拍摄模式；美颜保持当前默认摄像头和拍摄模式。两项能力均不自动拍照；本连接器不包含拍照、录像、拍摄模式切换、镜头切换、变焦或对焦控制。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "使用前置镜头进入自拍场景，保持当前拍摄模式，不自动拍照。",
+            "prompt": "帮我打开相机自拍模式",
+            "title": "打开自拍"
+          },
+          {
+            "description": "拉起相机并开启美颜，保持当前默认摄像头和拍摄模式，不自动拍照。",
+            "prompt": "打开相机美颜模式",
+            "title": "打开美颜模式"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990002",
+      "capabilities": [
+        {
+          "name": "camera_open_beauty_mode",
+          "displayName": "camera_open_beauty_mode",
+          "description": "打开相机美颜模式：拉起相机并开启美颜，保持当前默认摄像头和拍摄模式。例如：打开美颜、开启美颜、美颜模式。本能力只拉起相机并开美颜、不拍照。以下说法不走本能力：切换到人像模式、调到某个拍摄模式（人像/夜景/慢动作等） → 应走 camera_switch_mode。"
+        },
+        {
+          "name": "camera_open_selfie_mode",
+          "displayName": "camera_open_selfie_mode",
+          "description": "打开相机自拍模式：拉起相机并使用前置镜头进入自拍场景，保持当前拍摄模式不变。例如：自拍、打开自拍、我要自拍、自拍一张。本能力只进入自拍场景、不拍照；「自拍一张」需再走 camera_capture 拍照。本能力只处理「自拍」这个场景意图。如果用户说的是切换镜头的动作——切换到前置摄像头、切换到后摄、调到前置/后置、翻转镜头、换个镜头——应走 camera_switch_camera_facing，不走本能力。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_468",
+      "name": "文件管理",
+      "kind": "firstparty",
+      "category": "StepX 系统设置",
+      "shortDesc": "查找和管理本机文件及文件夹。",
+      "description": "查询文件位置、大小和时间，搜索或创建文件与文件夹，按类型查看文件，移动或重命名，并查看回收站列表。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "17",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_468",
+      "capabilities": [
+        {
+          "name": "filemanager_get_file_path",
+          "displayName": "filemanager_get_file_path",
+          "description": "获取指定文件的绝对路径。"
+        },
+        {
+          "name": "filemanager_get_file_size",
+          "displayName": "filemanager_get_file_size",
+          "description": "获取指定文件的大小。"
+        },
+        {
+          "name": "filemanager_get_file_create_time",
+          "displayName": "filemanager_get_file_create_time",
+          "description": "获取指定文件的创建时间。"
+        },
+        {
+          "name": "filemanager_get_file_update_time",
+          "displayName": "filemanager_get_file_update_time",
+          "description": "获取指定文件的最后更新时间。"
+        },
+        {
+          "name": "filemanager_get_file_detail",
+          "displayName": "filemanager_get_file_detail",
+          "description": "获取指定文件的详细信息。"
+        },
+        {
+          "name": "filemanager_create_folder",
+          "displayName": "filemanager_create_folder",
+          "description": "在文件管理中创建指定名称的文件夹。"
+        },
+        {
+          "name": "filemanager_create_file",
+          "displayName": "filemanager_create_file",
+          "description": "在文件管理中创建指定名称的文件；可指定目标文件夹路径，未指定时在内部存储根目录下创建。"
+        },
+        {
+          "name": "filemanager_search_file",
+          "displayName": "filemanager_search_file",
+          "description": "在文件管理中根据关键词搜索或查询文件、文件夹。"
+        },
+        {
+          "name": "filemanager_get_apk_file_list",
+          "displayName": "filemanager_get_apk_file_list",
+          "description": "获取文件管理中的 APK 文件列表。"
+        },
+        {
+          "name": "filemanager_get_compress_file_list",
+          "displayName": "filemanager_get_compress_file_list",
+          "description": "获取文件管理中的压缩类文件列表。"
+        },
+        {
+          "name": "filemanager_get_document_file_list",
+          "displayName": "filemanager_get_document_file_list",
+          "description": "获取文件管理中的文档类文件列表。"
+        },
+        {
+          "name": "filemanager_get_voice_file_list",
+          "displayName": "filemanager_get_voice_file_list",
+          "description": "获取文件管理中的音频类文件列表。"
+        },
+        {
+          "name": "filemanager_get_video_file_list",
+          "displayName": "filemanager_get_video_file_list",
+          "description": "获取视频类文件列表。"
+        },
+        {
+          "name": "filemanager_get_download_file_list",
+          "displayName": "filemanager_get_download_file_list",
+          "description": "获取文件管理中的下载文件列表。"
+        },
+        {
+          "name": "filemanager_get_weixin_file_list",
+          "displayName": "filemanager_get_weixin_file_list",
+          "description": "获取微信内的文件列表。"
+        },
+        {
+          "name": "filemanager_get_browser_file_list",
+          "displayName": "filemanager_get_browser_file_list",
+          "description": "获取浏览器内的文件列表。"
+        },
+        {
+          "name": "filemanager_get_bluetooth_file_list",
+          "displayName": "filemanager_get_bluetooth_file_list",
+          "description": "获取通过蓝牙传输的文件列表。"
+        },
+        {
+          "name": "filemanager_get_ringtone_file_list",
+          "displayName": "filemanager_get_ringtone_file_list",
+          "description": "获取文件管理中的铃声类文件列表。"
+        },
+        {
+          "name": "filemanager_get_screenshot_file_list",
+          "displayName": "filemanager_get_screenshot_file_list",
+          "description": "获取文件管理中的截屏文件列表。"
+        },
+        {
+          "name": "filemanager_get_screen_recording_file_list",
+          "displayName": "filemanager_get_screen_recording_file_list",
+          "description": "获取文件管理中的录屏文件列表。"
+        },
+        {
+          "name": "filemanager_move_file",
+          "displayName": "filemanager_move_file",
+          "description": "将指定源真实路径的文件移动到目标真实路径。"
+        },
+        {
+          "name": "filemanager_get_garbage_file_list",
+          "displayName": "filemanager_get_garbage_file_list",
+          "description": "获取文件管理中回收站的文件列表。"
+        },
+        {
+          "name": "filemanager_edit_folder_name",
+          "displayName": "filemanager_edit_folder_name",
+          "description": "修改指定文件夹的名称。"
+        },
+        {
+          "name": "filemanager_edit_file_name",
+          "displayName": "filemanager_edit_file_name",
+          "description": "修改指定文件的名称。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_463",
+      "name": "日历",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "查询和管理日历日程及特殊事件。",
+      "description": "创建、查询、编辑和删除普通日程与特殊事件，并打开日历编辑页、黄历详情或通用设置。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "18",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_463",
+      "capabilities": [
+        {
+          "name": "calendar_open_new_edit_event_activity",
+          "displayName": "calendar_open_new_edit_event_activity",
+          "description": "打开/进入新建日程页面（仅打开，不直接创建内容）。该页面支持创建普通日程事件，以及创建特殊事件（生日/纪念日/倒数日），由用户自行填写并保存。"
+        },
+        {
+          "name": "calendar_open_almanac_detail_activity",
+          "displayName": "calendar_open_almanac_detail_activity",
+          "description": "打开/进入黄历详情页面。可查看当天黄历的宜忌、吉凶、冲煞等内容。"
+        },
+        {
+          "name": "calendar_open_general_settings",
+          "displayName": "calendar_open_general_settings",
+          "description": "打开/进入日历设置页面。该页面包含通用设置（通知和提醒、每周起始日、默认日历视图）、智能识别日程开关、页面显示开关（农历详情卡片/显示周数/显示节日/显示过去的事件/显示拒绝事件/日程分享水印）以及个性化等相关设置。仅打开页面，不修改任何设置项。"
+        },
+        {
+          "name": "calendar_add_event",
+          "displayName": "calendar_add_event",
+          "description": "在用户日历中新增一个日程事件，支持设置标题、描述、地点、起止时间、全天事件、提醒提前时长、以及重复规则（每天/每个工作日/每周/每月/每年/每两周）。"
+        },
+        {
+          "name": "calendar_query_event",
+          "displayName": "calendar_query_event",
+          "description": "在用户日历中根据开始时间和结束时间查询日程。"
+        },
+        {
+          "name": "calendar_delete_event",
+          "displayName": "calendar_delete_event",
+          "description": "删除用户日历中的普通日程事件。按 start_time/end_time 圈定要查找的时间区间，再结合可选的 title/description/location 精确定位，唯一匹配一条时执行删除。重复日程与新建写入的是同一行 Events，匹配到后按整条系列删除。"
+        },
+        {
+          "name": "calendar_edit_event",
+          "displayName": "calendar_edit_event",
+          "description": "在用户日历中编辑一个日程事件，一次仅修改该事件的时间或标题之一。start_time/end_time 用于圈定要查找目标日程的时间区间，配合可选 title 精确定位。"
+        },
+        {
+          "name": "calendar_add_special_event",
+          "displayName": "calendar_add_special_event",
+          "description": "在用户日历中新增生日、纪念日、倒数日等特殊事件。"
+        },
+        {
+          "name": "calendar_query_special_event",
+          "displayName": "calendar_query_special_event",
+          "description": "在用户日历中根据开始时间和结束时间查询特殊事件（生日/纪念日/倒数日）。event_types 指定查询类型，不传或为空时查询全部类型。"
+        },
+        {
+          "name": "calendar_delete_special_event",
+          "displayName": "calendar_delete_special_event",
+          "description": "在用户日历中按时间范围删除特殊事件（生日、纪念日、倒数日）。通过 start_time/end_time 圈定要删除的时间区间；通过 event_types 指定要删除的特殊事件类型，不传或为空时默认删除该范围内全部三类特殊事件。不会影响普通日程。"
+        },
+        {
+          "name": "calendar_edit_special_event",
+          "displayName": "calendar_edit_special_event",
+          "description": "编辑用户日历中的特殊事件，支持修改生日、纪念日或倒数日的时间、标题或提醒设置。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_452",
+      "name": "时钟",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "管理闹钟与计时器，查询时区和城市时间。",
+      "description": "新增、关闭、稍后提醒或删除闹钟，新增计时器，并查询当前时区及指定城市的时间。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "17",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_452",
+      "capabilities": [
+        {
+          "name": "alarm_clock_add",
+          "displayName": "alarm_clock_add",
+          "description": "创建新闹钟"
+        },
+        {
+          "name": "alarm_clock_delete",
+          "displayName": "alarm_clock_delete",
+          "description": "按小时和分钟删除已有闹钟"
+        },
+        {
+          "name": "alarm_clock_delete_all",
+          "displayName": "alarm_clock_delete_all",
+          "description": "永久删除所有闹钟。此操作无法撤销。"
+        },
+        {
+          "name": "alarm_clock_disable",
+          "displayName": "alarm_clock_disable",
+          "description": "停用所有闹钟"
+        },
+        {
+          "name": "alarm_clock_snooze",
+          "displayName": "alarm_clock_snooze",
+          "description": "使用每个闹钟配置的稍后提醒时长，推迟所有当前正在响铃的闹钟；无法稍后提醒的闹钟会被视为已错过；仅影响正在响铃的闹钟。"
+        },
+        {
+          "name": "alarm_clock_get_enable",
+          "displayName": "alarm_clock_get_enable",
+          "description": "获取时钟应用中所有已启用的闹钟。"
+        },
+        {
+          "name": "alarm_clock_get_current_time_zone",
+          "displayName": "alarm_clock_get_current_time_zone",
+          "description": "获取当前时间、当前位置和当前时区信息。"
+        },
+        {
+          "name": "alarm_clock_get_current_time_by_city",
+          "displayName": "alarm_clock_get_current_time_by_city",
+          "description": "获取应用列表中某个世界时钟城市的当前时间（可使用该城市的城市 id、本地化/英文名称或已配置的时区字符串）"
+        },
+        {
+          "name": "alarm_clock_timer_add",
+          "displayName": "alarm_clock_timer_add",
+          "description": "启动一个新的倒计时计时器，并按指定秒数进行倒计时。"
+        },
+        {
+          "name": "alarm_clock_disable_one",
+          "displayName": "alarm_clock_disable_one",
+          "description": "按小时和分钟停用已有闹钟（不删除，可再次开启）"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_449",
+      "name": "电话",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "拨打电话，管理联系人、通话记录和电话设置。",
+      "description": "拨打、接听或挂断电话，查询与维护联系人和通话记录，并打开电话设置、管理拦截号码。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "21",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_449",
+      "capabilities": [
+        {
+          "name": "dialer_call_to",
+          "displayName": "dialer_call_to",
+          "description": "给指定电话号码直接拨打电话（立即发起呼叫，不打开拨号盘界面），并可指定是否为视频通话。用户说「给XX打电话」「拨打XX」「打电话给XX」且 XX 为号码（含 10086、110、95xxx 等短号/客服号、手机号、固话）时，必须使用本工具并传入 number=XX。"
+        },
+        {
+          "name": "dialer_call_contact",
+          "displayName": "dialer_call_contact",
+          "description": "根据联系人姓名在通讯录中查找并直接拨打电话。仅当用户说的是联系人姓名（非纯数字号码）时使用。参数：name（人名或昵称）、work（可选消歧）、contactId（多候选时指定）。支持昵称匹配（如「妈妈」）；服务端会自动拆分「快递员张三」类复合名。唯一匹配立即拨号；多个匹配返回候选列表，不会自动拨号。"
+        },
+        {
+          "name": "dialer_show_incall_screen",
+          "displayName": "dialer_show_incall_screen",
+          "description": "在已有进行中通话时，拉起系统通话界面（InCall UI）。若当前无通话，返回提示且不打开界面。"
+        },
+        {
+          "name": "dialer_accept_call",
+          "displayName": "dialer_accept_call",
+          "description": "接听当前响铃中的来电。调用 TelecomManager.acceptRingingCall() 后立即返回，不等待通话建立完成；若无来电则行为由系统决定。"
+        },
+        {
+          "name": "dialer_hangup_call",
+          "displayName": "dialer_hangup_call",
+          "description": "挂断当前来电或进行中的通话。通过 TelecomManager.endCall() 执行，成功或失败均立即返回结果。"
+        },
+        {
+          "name": "dialer_call_back",
+          "displayName": "dialer_call_back",
+          "description": "回拨通话记录中最近一次通话的号码（按时间倒序取第一条）。找到记录后立即发起语音呼叫并返回，不等待接通；无通话记录时返回提示且不拨号。"
+        },
+        {
+          "name": "dialer_contacts_add",
+          "displayName": "dialer_contacts_add",
+          "description": "向通讯录新增联系人。号码为必填；姓名、邮箱、公司、职位、备注、地址为可选补充字段，仅写入非空值。"
+        },
+        {
+          "name": "dialer_contacts_update",
+          "displayName": "dialer_contacts_update",
+          "description": "修改已有联系人的信息（姓名、邮箱、公司、职位、备注、地址）。通过号码或姓名定位联系人（号码优先，姓名支持模糊匹配）；仅更新传入的非空字段，未传字段保持原值不变。姓名与号码至少提供一个作为定位条件。\n副作用边界：不支持修改电话号码，number 仅用于定位；传入非空 name 时同时作为定位条件和新姓名写入；按姓名定位且命中多个联系人时更新失败，需改传 number。"
+        },
+        {
+          "name": "dialer_contacts_query",
+          "displayName": "dialer_contacts_query",
+          "description": "查询通讯录中**当前仍存在**的联系人，支持按姓名/昵称、号码、work 检索（号码优先）。支持昵称（如「妈妈」）；自动拆分「快递员张三」类复合名。返回姓名、电话、work 等。仅用于查看/查询，不删除、不恢复。用户说「撤回/恢复已删联系人」时禁止使用本工具；即使带了姓名、号码或地址要恢复，也禁止先用本工具再 restore。"
+        },
+        {
+          "name": "dialer_open_contacts_editor",
+          "displayName": "dialer_open_contacts_editor",
+          "description": "打开指定联系人的编辑界面，不删除联系人、不写入字段。通过号码或姓名定位联系人（至少提供一个）；号码优先。按姓名匹配到多个联系人时返回错误提示，不会打开界面。仅当用户明确要求「打开编辑页」「进入编辑界面」时使用。用户说「删除联系人」「删掉某某」「把某某从通讯录删掉」时禁止使用本工具，应走 dialer_contacts_delete，不要打开编辑页再点删除。Android 10+ 后台启动可能受系统限制。"
+        },
+        {
+          "name": "dialer_contacts_set_starred",
+          "displayName": "dialer_contacts_set_starred",
+          "description": "收藏或取消收藏指定联系人。通过号码或姓名定位（至少一个，号码优先）；按姓名匹配到多个时要求提供号码以消歧。"
+        },
+        {
+          "name": "dialer_contacts_copy_number",
+          "displayName": "dialer_contacts_copy_number",
+          "description": "将指定联系人的手机号码复制到系统剪贴板。按姓名模糊匹配；唯一匹配时复制并返回，多匹配时返回候选列表，未找到时返回提示。用户仅想查看/查询号码、不要求复制时，应走 dialer_contacts_query。"
+        },
+        {
+          "name": "dialer_open_my_business_card",
+          "displayName": "dialer_open_my_business_card",
+          "description": "打开「我的名片」界面，展示本地个人档案信息。无需参数，调用后直接跳转。"
+        },
+        {
+          "name": "dialer_check_last_caller",
+          "displayName": "dialer_check_last_caller",
+          "description": "查询通话记录中最近一次通话的详情（不限于来电，含呼入/呼出/未接等），返回号码、缓存联系人名称、时间和通话类型。仅查询，不拨号。"
+        },
+        {
+          "name": "dialer_query_calllog",
+          "displayName": "dialer_query_calllog",
+          "description": "查询通话记录，支持按日期/日期区间、联系人姓名过滤。未传日期时返回最近记录；按姓名过滤时先查通讯录号码再匹配通话记录。原 today/yesterday/day_before_yesterday/this_morning/this_afternoon/tonight 专用查询已合并到本工具；模型须将自然语言换算为规定日期时间格式后填入参数（禁止传入「今天」等相对中文词）。\n参数约定：\n- 全天：date=yyyy-MM-dd\n- 某一时刻：只用 date=yyyy-MM-dd HH:mm:ss，不要用 startDate/endDate\n- 上午/下午/晚上或任意时间范围：startDate+endDate（上午 00:00:00~11:59:59、下午 12:00:00~17:59:59、晚上 18:00:00~23:59:59）"
+        },
+        {
+          "name": "dialer_delete_calllog",
+          "displayName": "dialer_delete_calllog",
+          "description": "按条件删除系统通话记录（Call Log），不删除通讯录联系人，不操作电话黑名单，不打开任何界面。支持按日期/日期区间/上午下午晚上等时段、联系人姓名、号码过滤，以及删除最近一条；name 与 number 同时提供时为 OR 关系。原 today/yesterday/day_before_yesterday/by_number/by_contact_name/last 专用删除已合并到本工具；模型须将自然语言换算为规定日期时间格式后填入参数（禁止传入「今天/昨天/前天/今早」等相对中文词）。用户说「删除与某某的通话记录」「删掉跟张三的通话历史」时，应使用本工具并传入 name=某某（通话记录中显示的联系人姓名）。\n参数约定：\n- 按姓名：name=联系人姓名（精确匹配 CACHED_NAME）\n- 按号码：number=电话号码\n- 全天（今天/昨天/前天等）：date=yyyy-MM-dd\n- 某一时刻：只用 date=yyyy-MM-dd HH:mm:ss，不要用 startDate/endDate\n- 上午/下午/晚上或任意时间范围：startDate+endDate（上午 00:00:00~11:59:59、下午 12:00:00~17:59:59、晚上 18:00:00~23:59:59）\n- 按天的日期区间：也可 date 写区间（如 2026-03-01~2026-03-07）\n- 最近一条：last=true（无需其他条件）"
+        },
+        {
+          "name": "dialer_query_calllog_of_contact",
+          "displayName": "dialer_query_calllog_of_contact",
+          "description": "按通话记录中显示的联系人名称（缓存姓名 CACHED_NAME）查询相关通话记录，支持姓名模糊匹配；不查询通讯录，不要求对方在通讯录中。与 dialer_query_calllog 的 name 参数不同：后者先查通讯录号码再匹配通话记录。"
+        },
+        {
+          "name": "dialer_query_calllog_by_type",
+          "displayName": "dialer_query_calllog_by_type",
+          "description": "按通话类型查询通话记录，如未接、呼入、呼出、语音留言、已拒接、已拦截等。"
+        },
+        {
+          "name": "dialer_query_calllog_by_number",
+          "displayName": "dialer_query_calllog_by_number",
+          "description": "按电话号码查询通话记录。对原始号码及去非数字后的号码分别做子串模糊匹配（NUMBER LIKE），与 dialer_delete_calllog（传 number）的精确归一化匹配不同。"
+        },
+        {
+          "name": "dialer_query_call_duration_ranking",
+          "displayName": "dialer_query_call_duration_ranking",
+          "description": "查询通话时长排行榜，按时长从长到短排序，仅包含时长大于 0 的记录。可选按联系人姓名模糊过滤。"
+        },
+        {
+          "name": "dialer_show_dialpad",
+          "displayName": "dialer_show_dialpad",
+          "description": "仅打开拨号盘界面并可选预填号码，不直接发起呼叫。仅当用户明确要求「打开拨号盘」「进入拨号界面」「把号码填到拨号盘」时使用。用户说「给XX打电话」「拨打XX」即使带号码，也应走 dialer_call_to 直接拨号，不要用本工具。"
+        },
+        {
+          "name": "dialer_open_call_settings",
+          "displayName": "dialer_open_call_settings",
+          "description": "打开电话应用设置界面。无需参数，调用后直接跳转。"
+        },
+        {
+          "name": "dialer_open_sim_card_settings",
+          "displayName": "dialer_open_sim_card_settings",
+          "description": "打开 SIM 卡相关设置界面。无需参数。"
+        },
+        {
+          "name": "dialer_open_medical_emergency_information",
+          "displayName": "dialer_open_medical_emergency_information",
+          "description": "打开医疗急救信息编辑/查看界面。无需参数。"
+        },
+        {
+          "name": "dialer_settings_enable_power_button_ends_call",
+          "displayName": "dialer_settings_enable_power_button_ends_call",
+          "description": "直接开启或关闭「按电源键挂断电话」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "dialer_settings_enable_incoming_flip_silent",
+          "displayName": "dialer_settings_enable_incoming_flip_silent",
+          "description": "直接开启或关闭「来电翻转静音」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "dialer_settings_vibrate_when_mocall_connected",
+          "displayName": "dialer_settings_vibrate_when_mocall_connected",
+          "description": "直接开启或关闭「接通时振动」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "dialer_settings_open_auto_record_screen",
+          "displayName": "dialer_settings_open_auto_record_screen",
+          "description": "打开通话自动录音设置界面。无需参数。"
+        },
+        {
+          "name": "dialer_settings_allow_viewing_medical_information",
+          "displayName": "dialer_settings_allow_viewing_medical_information",
+          "description": "直接开启或关闭「未解锁时允许查看医疗急救信息」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "dialer_settings_sos_auto_call",
+          "displayName": "dialer_settings_sos_auto_call",
+          "description": "直接开启或关闭「SOS 紧急求助时自动报警」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "dialer_add_group",
+          "displayName": "dialer_add_group",
+          "description": "在通讯录中创建新的联系人群组。在第一个支持群组的非 SIM 账户下创建，群组名为必填。"
+        },
+        {
+          "name": "dialer_add_number_to_blocked_list",
+          "displayName": "dialer_add_number_to_blocked_list",
+          "description": "号码级操作：将指定号码加入电话黑名单（拦截列表），不删除通话记录。若号码匹配到通讯录联系人，会一并拦截该联系人的所有号码。仅当用户给出具体号码（或明确要拉黑某个号码）时使用。\n分工边界：电话 app 负责号码级黑名单加/删/查；打开黑名单/骚扰拦截页面、规则级拦截策略（如拦截陌生来电）应走手机管家的 security_manager_open_harassment_interception。"
+        },
+        {
+          "name": "dialer_query_blocked_number",
+          "displayName": "dialer_query_blocked_number",
+          "description": "号码级操作：查询指定号码是否在电话黑名单（拦截列表）中。仅查询该号码的拦截状态，不查通讯录联系人号码，不打开任何界面。\n分工边界：本工具只回答「某个具体号码是否已拉黑」；打开黑名单/骚扰拦截页、查看或调整拦截规则应走手机管家的 security_manager_open_harassment_interception。"
+        },
+        {
+          "name": "dialer_delete_number_from_blocked_list",
+          "displayName": "dialer_delete_number_from_blocked_list",
+          "description": "号码级操作：将指定号码从电话黑名单（拦截列表）中移除，不删除系统通话记录，不打开界面。与「删除与某某的通话记录」完全不同。仅当用户给出具体号码并要求取消拉黑时使用。\n分工边界：本工具只管单个号码移出黑名单；打开黑名单/骚扰拦截页、关闭骚扰拦截或调整拦截规则应走手机管家的 security_manager_open_harassment_interception。"
+        }
+      ]
+    },
+    {
+      "id": "ic_baidu_netdisk",
+      "name": "百度网盘",
+      "kind": "thirdparty",
+      "category": "文件存储",
+      "shortDesc": "保存文件到自己的百度网盘",
+      "description": "开发者配置自己的百度应用，用户通过项目后端授权，将文件保存到本人的网盘应用目录。单文件最大 50 MiB。",
+      "authType": "guide",
+      "version": "0.2.0",
+      "revision": "6",
+      "deliveryType": "ability",
+      "detailContent": {
+        "readme": "## 使用说明\n\n项目开发者先申请百度应用，将 AppKey、SecretKey 和应用名称保存在项目配置，并登记真实回调 URL、确认并部署。用户通过项目后端完成 OAuth，无需申请 Key。文件保存在「我的应用数据 / 开发者百度应用名」，单文件最大 50 MiB。工具面向 IDE 用户；生成 App 用户使用自己的项目 Auth 登录调用云函数，授权彼此独立。只有 completed 代表上传成功。",
+        "use_cases": [
+          {
+            "description": "将选中的项目附件保存到自己的网盘应用目录",
+            "prompt": "把我选择的项目附件上传到我的百度网盘",
+            "title": "保存项目文件"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_baidu_netdisk",
+      "capabilities": [
+        {
+          "name": "netdisk_upload_file",
+          "displayName": "上传文件",
+          "description": "将当前项目附件异步上传到用户自己的百度网盘应用目录"
+        },
+        {
+          "name": "netdisk_get_upload_status",
+          "displayName": "查询上传状态",
+          "description": "按任务 ID 查询上传进度与网盘保存结果"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_494",
+      "name": "相机",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "打开相机美颜或自拍模式。",
+      "description": "打开相机并启用美颜模式，或切换到前置摄像头进行自拍。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "17",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_494",
+      "capabilities": [
+        {
+          "name": "camera_open_beauty_mode",
+          "displayName": "camera_open_beauty_mode",
+          "description": "打开相机美颜模式：拉起相机并开启美颜，保持当前默认摄像头。"
+        },
+        {
+          "name": "camera_open_selfie_mode",
+          "displayName": "camera_open_selfie_mode",
+          "description": "打开相机自拍模式：拉起相机并切换到前置摄像头。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_470",
+      "name": "系统界面助手",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "截图、长截图和屏幕录制。",
+      "description": "使用系统界面助手截取屏幕或长截图，并开始或停止屏幕录制。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "20",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_470",
+      "capabilities": [
+        {
+          "name": "screen_capture_record",
+          "displayName": "screen_capture_record",
+          "description": "启动屏幕录制功能，用于启动当前屏幕录制并录制设备屏幕视频。支持通过开始录屏、屏幕录像、录制屏幕等方式触发。"
+        },
+        {
+          "name": "screen_capture_stop_record",
+          "displayName": "screen_capture_stop_record",
+          "description": "停止屏幕录制功能，用于结束当前正在进行的屏幕录制任务并保存视频文件。无需进入设置页面即可直接停止录屏。"
+        },
+        {
+          "name": "screen_capture_screenshot",
+          "displayName": "screen_capture_screenshot",
+          "description": "用于捕获当前设备屏幕内容，截屏"
+        },
+        {
+          "name": "screen_capture_take_long_screenshot",
+          "displayName": "screen_capture_take_long_screenshot",
+          "description": "长截图功能，用于自动滚动当前页面并连续截图，拼接生成完整长图。适用于网页、聊天记录、列表等超出屏幕范围的内容截取场景。截长图。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_495",
+      "name": "网络设置",
+      "kind": "firstparty",
+      "category": "StepX 系统设置",
+      "shortDesc": "打开 Wi-Fi、蓝牙、VPN 和移动网络设置。",
+      "description": "打开 Wi-Fi、高级无线网络、已保存网络、网络共享、蓝牙、VPN 与移动网络等设置页面。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "22",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_495",
+      "capabilities": [
+        {
+          "name": "connectivitysettings_open_settings_wifi_settings_activity",
+          "displayName": "connectivitysettings_open_settings_wifi_settings_activity",
+          "description": "打开系统设置中的 WiFi 设置页（WiFi 列表和配置入口）。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_advanced_wifi_settings_activity",
+          "displayName": "connectivitysettings_open_settings_advanced_wifi_settings_activity",
+          "description": "打开/进入 WiFi 高级设置页面。此页面包括公共网络提醒、证书安装、MAC地址切换等功能。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_wifi_info_settings_activity",
+          "displayName": "connectivitysettings_open_settings_wifi_info_settings_activity",
+          "description": "打开当前连接的 WiFi 详情页面，用于查看当前连接WiFi信息并进入该 Wi-Fi 的相关设置。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_wifi_p_2_p_settings_activity",
+          "displayName": "connectivitysettings_open_settings_wifi_p_2_p_settings_activity",
+          "description": "打开/进入P2P连接页面。该功能不直接进行连接操作。该页面可以查看搜索到的所有支持P2P的设备，并且可以发起连接申请。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_saved_access_points_wifi_settings",
+          "displayName": "connectivitysettings_open_settings_saved_access_points_wifi_settings",
+          "description": "打开/进入已保存WiFi页面。该页面是管理WiFi的展示页面，可以选择某一个已保存的WIFI，进行取消保存、断开连接、分享、查看该WIFI的详情信息等操作。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_wifi_display_settings_activity",
+          "displayName": "connectivitysettings_open_settings_wifi_display_settings_activity",
+          "description": "打开/进入投屏的设置界面，该功能不直接打开投屏的开关，而是展示投屏页面，进入之后可以搜索附近可投屏的设备，从而进行后续的连接操作。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_tether_settings_activity",
+          "displayName": "connectivitysettings_open_settings_tether_settings_activity",
+          "description": "打开设置中的热点页面或网络共享页面，供用户进入热点与网络共享相关设置。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_bluetooth_settings_activity",
+          "displayName": "connectivitysettings_open_settings_bluetooth_settings_activity",
+          "description": "打开系统设置中的蓝牙页面，用于配对/管理蓝牙设备（非开关）。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_vpn_settings_activity",
+          "displayName": "connectivitysettings_open_settings_vpn_settings_activity",
+          "description": "打开/进入VPN连接页面。该页面可以对VPN进行添加/配置，设置VPN相关偏好。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_mobile_network_settings_activity",
+          "displayName": "connectivitysettings_open_settings_mobile_network_settings_activity",
+          "description": "打开/进入 SIM 卡管理页面，并进入双卡管理页面。此界面包含双卡数据切换和流量开关控制等功能。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990001",
+      "name": "背面点阵屏",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "18 项背面点阵屏能力：查询与控制画面、亮度及联动；支持取消倒计时，不支持启动倒计时。",
+      "description": "提供 18 项背面点阵屏能力：查询显示状态，唤醒或熄灭背屏，推送或清除自定义点阵，查询或设置待机类型、显示模式、自动旋转、相机联动、手动亮度及自动背光，并取消当前倒计时（没有倒计时也成功，不播放结束动画）。不支持启动倒计时。set_back_screen_frame 选中版本 10012 仅接受 frame：391 个 0–255 整数亮度值，按 17 列×23 行行优先排列，0 为灭；不支持 text 参数，以 input_schema 为准。待机类型接口 set_back_screen_basic_type 按其原 schema 保留 type/text 及中文转点阵支持。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "取消当前倒计时，不播放结束动画；没有正在进行的倒计时也成功，不支持启动倒计时。",
+            "prompt": "取消当前背屏倒计时",
+            "title": "取消当前倒计时"
+          },
+          {
+            "description": "必须提供 frame 数组，包含 391 个 0–255 整数亮度值（0 为灭），按行优先排列，下标 y * 17 + x；选中版本 10012 不支持 text 参数。",
+            "prompt": "将我提供的 391 个 0–255 整数亮度值按 17 列×23 行行优先顺序显示到背屏",
+            "title": "17 列×23 行自定义点阵"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990001",
+      "capabilities": [
+        {
+          "name": "get_back_screen_auto_brightness",
+          "displayName": "get_back_screen_auto_brightness",
+          "description": "查询背屏自动背光开关是否打开。只读，不修改设置。"
+        },
+        {
+          "name": "set_back_screen_auto_brightness",
+          "displayName": "set_back_screen_auto_brightness",
+          "description": "打开或关闭背屏自动背光。打开后按环境光自动调节；关闭后使用手动亮度。"
+        },
+        {
+          "name": "get_back_screen_brightness",
+          "displayName": "get_back_screen_brightness",
+          "description": "查询背屏手动亮度，范围为 1–255。返回的是已存储的手动档；若自动背光开着，该值暂不作用于面板。"
+        },
+        {
+          "name": "set_back_screen_brightness",
+          "displayName": "set_back_screen_brightness",
+          "description": "设置背屏手动亮度，范围为 1–255。设置时会自动关闭自动背光，使该值立即生效。面板在 1、2 档时观感与 3 档相同，调用方无需自行抬底。"
+        },
+        {
+          "name": "get_back_screen_camera_link",
+          "displayName": "get_back_screen_camera_link",
+          "description": "查询背屏相机联动开关是否打开。打开时占用相机可在背屏显示相机相关状态。"
+        },
+        {
+          "name": "set_back_screen_camera_link",
+          "displayName": "set_back_screen_camera_link",
+          "description": "打开或关闭背屏相机联动。打开后占用相机时背屏可显示相机图标等状态；关闭会清掉硬件占用的相机 SPECIAL 槽。"
+        },
+        {
+          "name": "get_back_screen_auto_rotate",
+          "displayName": "get_back_screen_auto_rotate",
+          "description": "查询背屏横竖屏适配（自动旋转）开关是否打开。"
+        },
+        {
+          "name": "set_back_screen_auto_rotate",
+          "displayName": "set_back_screen_auto_rotate",
+          "description": "打开或关闭背屏横竖屏适配。打开后主屏亮起时背屏跟随设备姿态旋转。"
+        },
+        {
+          "name": "cancel_back_screen_countdown",
+          "displayName": "cancel_back_screen_countdown",
+          "description": "取消当前背屏倒计时，不播放结束动画。没有正在进行的倒计时时也视为成功。"
+        },
+        {
+          "name": "get_back_screen_display_mode",
+          "displayName": "get_back_screen_display_mode",
+          "description": "查询背屏显示模式：auto 智能显示、always 始终显示、custom 定时显示，并返回定时窗口起止（距午夜的分钟数及时钟时间）。"
+        },
+        {
+          "name": "set_back_screen_display_mode",
+          "displayName": "set_back_screen_display_mode",
+          "description": "设置背屏显示模式。auto=智能显示（事件点亮后超时熄灭），always=始终显示，custom=定时显示（窗口内常亮，窗外等同智能显示）。定时显示可同时传 customStart / customEnd，单位是距午夜的分钟数，例如早上 8 点为 8×60=480，晚上 22 点为 1320。"
+        },
+        {
+          "name": "get_back_screen_basic_type",
+          "displayName": "get_back_screen_basic_type",
+          "description": "查询背屏待机显示类型：agent 默认动画、time 时间、text 自定义文本。类型为 text 时同时返回当前文本。"
+        },
+        {
+          "name": "set_back_screen_basic_type",
+          "displayName": "set_back_screen_basic_type",
+          "description": "设置背屏待机显示。type=agent 默认动画，time 时间，text 自定义文本。选 text 时必须同时传 text。内置字库仅支持大写 A-Z、数字 0-9 以及 ! - ? 空格共 40 个字符（小写会自动转大写）。含中文时本能力会改走 set_back_screen_frame 点阵显示，最多 6 个字。"
+        },
+        {
+          "name": "set_back_screen_frame",
+          "displayName": "set_back_screen_frame",
+          "description": "向背屏推送一帧自定义点阵画面。画布固定为 17 列（x / 宽度）× 23 行（y / 高度），共 391 格。可传 frame 一维整数数组（下标 y * 17 + x，亮度 0–255，0 为灭），或传 text 由本能力把文字（含中文，最多 6 字）栅格化后下发。frame 与 text 二选一。"
+        },
+        {
+          "name": "clear_back_screen_frame",
+          "displayName": "clear_back_screen_frame",
+          "description": "清除刚刚通过 set_back_screen_frame 下发的自定义点阵，退出自定义帧模式并恢复当前 agent 状态显示。没有自定义帧时调用也安全。"
+        },
+        {
+          "name": "wake_up_back_screen",
+          "displayName": "wake_up_back_screen",
+          "description": "点亮背屏（wakeUpBackScreen）。与打开背屏总开关不同，本能力只请求立刻亮屏，不修改总开关设置。"
+        },
+        {
+          "name": "sleep_back_screen",
+          "displayName": "sleep_back_screen",
+          "description": "熄灭背屏（sleepBackScreen）。与关闭背屏总开关不同，本能力只请求立刻灭屏，不修改总开关设置。"
+        },
+        {
+          "name": "get_back_screen_display_info",
+          "displayName": "get_back_screen_display_info",
+          "description": "查询背屏当前显示信息，包含亮灭状态（Display.state）、逻辑宽高、旋转角度、当前亮度。只读，不修改任何设置。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990015",
+      "name": "蓝牙链接",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "打开蓝牙设置页面，查询或切换蓝牙开关。",
+      "description": "打开系统蓝牙设置页面，查询蓝牙开启状态，以及打开或关闭蓝牙。本连接器不包含设备扫描、配对或指定设备连接能力。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "查询系统蓝牙是否开启。",
+            "prompt": "蓝牙现在开着吗",
+            "title": "查看蓝牙状态"
+          },
+          {
+            "description": "打开系统蓝牙设置页面，不自动配对或连接设备。",
+            "prompt": "打开蓝牙设置页面",
+            "title": "打开蓝牙设置"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990015",
+      "capabilities": [
+        {
+          "name": "settings_bluetooth_switch",
+          "displayName": "settings_bluetooth_switch",
+          "description": "直接开启或关闭蓝牙。"
+        },
+        {
+          "name": "settings_get_bluetooth_state",
+          "displayName": "settings_get_bluetooth_state",
+          "description": "查询蓝牙开关状态。"
+        },
+        {
+          "name": "connectivitysettings_open_settings_bluetooth_settings_activity",
+          "displayName": "connectivitysettings_open_settings_bluetooth_settings_activity",
+          "description": "打开系统设置中的蓝牙页面，用于配对/管理蓝牙设备（非开关）。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990008",
+      "name": "蜂窝与双开",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "管理移动数据、飞行模式、热点及电话呼叫相关设置。",
+      "description": "查询或切换移动数据、飞行模式和热点，接听或挂断电话，按号码或联系人拨号，配置 SOS 自动呼叫及电源键结束通话。名称沿用清单，本次不包含应用双开或双卡切换能力。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "查询移动数据、飞行模式与热点是否开启。",
+            "prompt": "查一下移动数据、飞行模式和热点的开关状态",
+            "title": "查询网络开关状态"
+          },
+          {
+            "description": "设置是否允许通过电源键结束通话。",
+            "prompt": "开启按电源键结束通话",
+            "title": "电源键结束通话"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990008",
+      "capabilities": [
+        {
+          "name": "dialer_call_to",
+          "displayName": "dialer_call_to",
+          "description": "给指定电话号码直接拨打电话（立即发起呼叫，不打开拨号盘界面），并可指定是否为视频通话。用户说「给XX打电话」「拨打XX」「打电话给XX」且 XX 为号码（含 10086、110、95xxx 等短号/客服号、手机号、固话）时，必须使用本工具并传入 number=XX。"
+        },
+        {
+          "name": "dialer_call_contact",
+          "displayName": "dialer_call_contact",
+          "description": "根据联系人姓名在通讯录中查找并直接拨打电话。仅当用户说的是联系人姓名（非纯数字号码）时使用。参数：name（人名或昵称）、work（可选消歧）、contactId（多候选时指定）。支持昵称匹配（如「妈妈」）；服务端会自动拆分「快递员张三」类复合名。唯一匹配立即拨号；多个匹配返回候选列表，不会自动拨号。"
+        },
+        {
+          "name": "dialer_accept_call",
+          "displayName": "dialer_accept_call",
+          "description": "接听当前响铃中的来电。调用 TelecomManager.acceptRingingCall() 后立即返回，不等待通话建立完成；若无来电则行为由系统决定。"
+        },
+        {
+          "name": "dialer_hangup_call",
+          "displayName": "dialer_hangup_call",
+          "description": "挂断当前来电或进行中的通话。通过 TelecomManager.endCall() 执行，成功或失败均立即返回结果。"
+        },
+        {
+          "name": "dialer_settings_enable_power_button_ends_call",
+          "displayName": "dialer_settings_enable_power_button_ends_call",
+          "description": "直接开启或关闭「按电源键挂断电话」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "dialer_settings_sos_auto_call",
+          "displayName": "dialer_settings_sos_auto_call",
+          "description": "直接开启或关闭「SOS 紧急求助时自动报警」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "settings_hotspot_switch",
+          "displayName": "settings_hotspot_switch",
+          "description": "直接开启或关闭个人热点。"
+        },
+        {
+          "name": "settings_airplane_mode_switch",
+          "displayName": "settings_airplane_mode_switch",
+          "description": "直接开启或关闭飞行模式（无需进入设置）。"
+        },
+        {
+          "name": "settings_data_switch",
+          "displayName": "settings_data_switch",
+          "description": "直接开启或关闭蜂窝数据网络。"
+        },
+        {
+          "name": "settings_get_hotspot_state",
+          "displayName": "settings_get_hotspot_state",
+          "description": "查询个人热点开关状态。"
+        },
+        {
+          "name": "settings_get_airplane_mode_state",
+          "displayName": "settings_get_airplane_mode_state",
+          "description": "查询飞行模式的开关状态（无需进入设置）。"
+        },
+        {
+          "name": "settings_get_data_state",
+          "displayName": "settings_get_data_state",
+          "description": "查询数据网络（流量）开关状态。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990012",
+      "name": "触觉反馈",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "发起一次设备震动，或提交取消当前震动的请求。",
+      "description": "使用 start_vibration 发起指定时长的一次震动，实际震动受硬件和系统策略影响；使用 stop_vibration 取消当前震动，不关闭系统震动开关，也不禁止后续震动。取消操作无需参数，传入参数会被忽略；无正在进行的震动时也正常返回，不查询或报告震动状态，权限不足或系统服务异常时返回错误。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "提交指定时长的震动请求；实际震动受硬件与系统策略影响。",
+            "prompt": "让手机震动 2 秒",
+            "title": "一次性震动提示"
+          },
+          {
+            "description": "提交取消当前震动的请求；无震动时也正常返回，不查询或报告震动状态，不关闭系统震动开关或禁止后续震动。",
+            "prompt": "停止当前震动",
+            "title": "取消当前震动"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990012",
+      "capabilities": [
+        {
+          "name": "start_vibration",
+          "displayName": "start_vibration",
+          "description": "立即让设备按指定时长进行一次震动，适用于即时触觉提示。重复调用会重新提交震动请求；不创建未来的定时提醒、不循环震动，也不修改系统的来电或通知震动设置。成功返回「已提交震动请求」及采用的时长和强度，不等待震动结束；到期由系统停止，也可调用 stop_vibration 提前取消。返回成功仅表示请求已提交，实际震动仍受硬件和系统策略影响。参数无效、设备无震动硬件、不支持请求的自定义强度、权限不足或系统服务异常时返回错误。"
+        },
+        {
+          "name": "stop_vibration",
+          "displayName": "stop_vibration",
+          "description": "取消当前震动。不关闭系统震动开关，也不禁止后续震动。无需参数，传入的参数会被忽略；成功返回「已提交取消震动请求」，没有正在进行的震动时也正常返回，不查询或报告当前震动状态。权限不足或系统服务异常时返回错误。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_474",
+      "name": "计算器",
+      "kind": "firstparty",
+      "category": "StepX 手机应用",
+      "shortDesc": "计算数学表达式。",
+      "description": "使用计算器能力计算给定表达式的结果。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "18",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_474",
+      "capabilities": [
+        {
+          "name": "evaluate_expression",
+          "displayName": "evaluate_expression",
+          "description": "根据数学表达式字符串计算结果，与计算器内置科学计算引擎一致（Arity）；三角函数默认按角度，可通过 use_radians 切换为弧度。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_472",
+      "name": "通用原子能力",
+      "kind": "firstparty",
+      "category": "StepX 系统设置",
+      "shortDesc": "打开应用、上传文件并使用设备通用能力。",
+      "description": "按名称或包名打开应用，显示组件或通知，批量上传文件，并使用剪贴板、屏幕信息、浏览器、语音播报和震动能力。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "8",
+      "deliveryType": "ability",
+      "detailContent": {},
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_472",
+      "capabilities": [
+        {
+          "name": "open_app_by_package",
+          "displayName": "open_app_by_package",
+          "description": "根据 Android 应用包名打开应用；仅传 packageName 时启动该应用的默认入口 Activity，同时传 packageName 与 className 时直接启动指定 Activity。适用于用户明确提供包名或需要打开指定包名 Activity 的场景。"
+        },
+        {
+          "name": "open_app_by_name",
+          "displayName": "open_app_by_name",
+          "description": "根据应用显示名称打开应用，可选传入 Activity class name 打开具体 Activity。当前按系统应用列表中的显示名称忽略大小写匹配：优先完全匹配，未命中时按显示名前缀匹配以兼容简称（如“携程”命中“携程旅行”），多个命中时取显示名最短者；未找到应用、无默认启动入口或指定 Activity 启动失败时返回错误。\n\nApp名字不置信时，先使用common_ability_get_app_list原子能力获取已安装App list，如果必要，修正app名称后再调用。"
+        },
+        {
+          "name": "show_widget_by_package_class",
+          "displayName": "show_widget_by_package_class",
+          "description": "根据指定 packageName 和 Widget provider className 展示对应小组件。该能力要求明确传入小组件所属应用包名和完整类名，不负责随机选择小组件。"
+        },
+        {
+          "name": "show_notify_by_info",
+          "displayName": "show_notify_by_info",
+          "description": "根据传入的标题、内容、PendingIntent 和图标生成并显示一条通知。该能力是底层通知展示接口，适用于系统服务、上层应用或后台任务主动展示自定义通知，不适合作为普通用户自然语言直接触发的能力。"
+        },
+        {
+          "name": "batch_file_upload",
+          "displayName": "batch_file_upload",
+          "description": "上传本地文件到服务端（批量），适用于只需要发起批量上传、不要求一次性返回全部文件结果或实时进度的场景。"
+        },
+        {
+          "name": "batch_file_upload_return_all",
+          "displayName": "batch_file_upload_return_all",
+          "description": "批量上传本地文件，并在全部文件处理完成后一次性返回所有上传结果。适用于只关心最终结果、不需要实时进度的场景。"
+        },
+        {
+          "name": "batch_file_upload_all_progress",
+          "displayName": "batch_file_upload_all_progress",
+          "description": "批量上传本地文件，并通过 progressToken 实时返回上传进度。适用于需要展示上传百分比、监听状态变化或处理单个文件失败原因的场景。"
+        },
+        {
+          "name": "common_ability_clipboard_text",
+          "displayName": "common_ability_clipboard_text",
+          "description": "获取系统剪贴板中的文本内容。仅用于读取文本类型内容；剪贴板为空、当前内容不是文本或系统限制读取时，按实际读取结果返回空文本或错误信息。"
+        },
+        {
+          "name": "common_ability_get_screen_size",
+          "displayName": "common_ability_get_screen_size",
+          "description": "获取当前手机屏幕的完整物理分辨率，包括屏幕宽度和高度，单位为像素 px。"
+        },
+        {
+          "name": "check_app_installed_by_name",
+          "displayName": "check_app_installed_by_name",
+          "description": "通过应用显示名称检查指定应用是否已安装。当前按系统应用列表中的显示名称忽略大小写匹配：优先完全匹配，未命中时按显示名前缀匹配以兼容简称（如“携程”命中“携程旅行”）；仍未命中时返回 false。"
+        },
+        {
+          "name": "open_url_with_browser",
+          "displayName": "open_url_with_browser",
+          "description": "打开浏览器应用，并传入 URL 打开具体网页。url 必须以 http:// 或 https:// 开头；不支持缺少协议的地址、file:// 或本地路径。"
+        },
+        {
+          "name": "common_ability_get_app_list",
+          "displayName": "common_ability_get_app_list",
+          "description": "获取当前手机已安装的第三方应用列表，返回应用名称和包名等信息。不包含系统预装应用。适用于用户想查看设备上安装了哪些第三方应用的场景。"
+        },
+        {
+          "name": "common_ability_get_app_count",
+          "displayName": "common_ability_get_app_count",
+          "description": "获取当前手机已安装的第三方应用总个数，不包含系统预装应用。适用于用户只关心第三方应用数量、不需要完整应用列表的场景。"
+        },
+        {
+          "name": "speak_text",
+          "displayName": "speak_text",
+          "description": "用 TTS 把文本合成语音并从扬声器播放出来；调用后立即开始播报，不等播完就返回，方便边播边继续对话。适用于用户要求朗读、播报、念出某段文字的场景。注意：播报占用扬声器，会打断当前正在播放的音频。"
+        },
+        {
+          "name": "start_vibration",
+          "displayName": "start_vibration",
+          "description": "立即让设备按指定时长进行一次震动，适用于即时触觉提示。重复调用会重新提交震动请求；不创建未来的定时提醒、不循环震动，也不修改系统的来电或通知震动设置。成功返回「已提交震动请求」及采用的时长和强度，不等待震动结束；到期由系统停止，也可调用 stop_vibration 提前取消。返回成功仅表示请求已提交，实际震动仍受硬件和系统策略影响。参数无效、设备无震动硬件、不支持请求的自定义强度、权限不足或系统服务异常时返回错误。"
+        },
+        {
+          "name": "stop_vibration",
+          "displayName": "stop_vibration",
+          "description": "取消当前震动。不关闭系统震动开关，也不禁止后续震动。无需参数，传入的参数会被忽略；成功返回「已提交取消震动请求」，没有正在进行的震动时也正常返回，不查询或报告当前震动状态。权限不足或系统服务异常时返回错误。"
+        },
+        {
+          "name": "stop_speak_text",
+          "displayName": "stop_speak_text",
+          "description": "停止本应用当前的语音播报或朗读（由 speak_text 发起），支持跨会话停止。当前会话无需有 speak_text 的调用历史：即使播报由其他会话发起，或当前上下文无法确认是否有播报，只要用户明确要求停止播报或朗读，就应直接调用本工具，无需先查询播放状态，也无需追问原会话。本工具会取消当前合成任务并清理待播音频。只结束当前这一句，不支持从断点继续；不暂停其他应用的音乐或视频，不关闭麦克风，不修改系统音量，也不阻止后续播报。无需参数，传入的参数会被忽略；没有正在进行的播报时也正常返回「已停止语音播报」。归还音频焦点后，之前被播报打断的音乐可能自行恢复。"
+        }
+      ]
+    },
+    {
+      "id": "ic_fp_alarm_clock",
+      "name": "闹钟",
+      "kind": "firstparty",
+      "category": "生活服务",
+      "shortDesc": "设置和管理闹钟、倒计时，查询当前时间",
+      "description": "设置、修改与删除闹钟和倒计时，支持重复周期、铃声与稍后提醒；也可查询当前时间与下一个闹钟。",
+      "authType": "none",
+      "version": "0.0.1",
+      "revision": "2",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "按指定时间设置闹钟，提醒用户处理重要事项。",
+            "prompt": "帮我设置明早 7 点的闹钟",
+            "title": "重要日程提醒"
+          },
+          {
+            "description": "查询已启用的闹钟，停用不再需要的提醒。",
+            "prompt": "看看我开启了哪些闹钟",
+            "title": "管理已有闹钟"
+          },
+          {
+            "description": "为短时任务启动倒计时。",
+            "prompt": "设置一个 10 分钟倒计时",
+            "title": "倒计时提醒"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_fp_alarm_clock",
+      "capabilities": [
+        {
+          "name": "alarm_clock_add",
+          "displayName": "alarm_clock_add",
+          "description": "按指定时间创建闹钟。"
+        },
+        {
+          "name": "alarm_clock_delete",
+          "displayName": "alarm_clock_delete",
+          "description": "按小时和分钟删除已有闹钟。"
+        },
+        {
+          "name": "alarm_clock_delete_all",
+          "displayName": "alarm_clock_delete_all",
+          "description": "永久删除所有闹钟，此操作无法撤销。"
+        },
+        {
+          "name": "alarm_clock_disable",
+          "displayName": "alarm_clock_disable",
+          "description": "停用所有闹钟，不删除闹钟。"
+        },
+        {
+          "name": "alarm_clock_disable_one",
+          "displayName": "alarm_clock_disable_one",
+          "description": "按小时和分钟停用指定闹钟。"
+        },
+        {
+          "name": "alarm_clock_snooze",
+          "displayName": "alarm_clock_snooze",
+          "description": "推迟当前正在响铃的闹钟。"
+        },
+        {
+          "name": "alarm_clock_get_enable",
+          "displayName": "alarm_clock_get_enable",
+          "description": "查询所有已启用的闹钟。"
+        },
+        {
+          "name": "alarm_clock_get_current_time_zone",
+          "displayName": "alarm_clock_get_current_time_zone",
+          "description": "查询本机当前时间和时区。"
+        },
+        {
+          "name": "alarm_clock_get_current_time_by_city",
+          "displayName": "alarm_clock_get_current_time_by_city",
+          "description": "查询指定城市的当前时间。"
+        },
+        {
+          "name": "alarm_clock_timer_add",
+          "displayName": "alarm_clock_timer_add",
+          "description": "启动指定时长的倒计时。"
+        }
+      ]
+    },
+    {
+      "id": "ic_atomic_990004",
+      "name": "音频输出与路由",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "进行文本语音播报，调节媒体音量并管理来电翻转静音和锁屏提示音。",
+      "description": "开始或停止文本语音播报，设置媒体音量，配置来电翻转静音，以及查询或切换锁屏提示音。本次清单不包含音频输出设备或路由切换能力。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "设置媒体播放音量。",
+            "prompt": "把媒体音量调到 50%",
+            "title": "调整媒体音量"
+          },
+          {
+            "description": "设置是否翻转手机即可静音来电。",
+            "prompt": "开启来电翻转静音",
+            "title": "来电翻转静音"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990004",
+      "capabilities": [
+        {
+          "name": "dialer_settings_enable_incoming_flip_silent",
+          "displayName": "dialer_settings_enable_incoming_flip_silent",
+          "description": "直接开启或关闭「来电翻转静音」设置项，无需打开设置界面。"
+        },
+        {
+          "name": "settings_screen_lock_sound_switch",
+          "displayName": "settings_screen_lock_sound_switch",
+          "description": "打开屏幕锁定提示音，关闭屏幕锁定提示音，开关类的原子能力，无需进入对应页面，可以直接开启或关闭屏幕锁定提示音。"
+        },
+        {
+          "name": "settings_set_media_sound",
+          "displayName": "settings_set_media_sound",
+          "description": "将设备的媒体音量调整到用户指定的百分比水平。"
+        },
+        {
+          "name": "settings_get_screen_lock_sound_state",
+          "displayName": "settings_get_screen_lock_sound_state",
+          "description": "查询屏幕锁定提示音开关状态。"
+        },
+        {
+          "name": "speak_text",
+          "displayName": "speak_text",
+          "description": "用 TTS 把文本合成语音并从扬声器播放出来；调用后立即开始播报，不等播完就返回，方便边播边继续对话。适用于用户要求朗读、播报、念出某段文字的场景。注意：播报占用扬声器，会打断当前正在播放的音频。"
+        },
+        {
+          "name": "stop_speak_text",
+          "displayName": "stop_speak_text",
+          "description": "停止本应用当前的语音播报或朗读（由 speak_text 发起），支持跨会话停止。当前会话无需有 speak_text 的调用历史：即使播报由其他会话发起，或当前上下文无法确认是否有播报，只要用户明确要求停止播报或朗读，就应直接调用本工具，无需先查询播放状态，也无需追问原会话。本工具会取消当前合成任务并清理待播音频。只结束当前这一句，不支持从断点继续；不暂停其他应用的音乐或视频，不关闭麦克风，不修改系统音量，也不阻止后续播报。无需参数，传入的参数会被忽略；没有正在进行的播报时也正常返回「已停止语音播报」。归还音频焦点后，之前被播报打断的音乐可能自行恢复。"
+        }
+      ]
+    },
+    {
+      "id": "ic_feishu_cli",
+      "name": "飞书 CLI",
+      "kind": "thirdparty",
+      "category": "协同办公",
+      "shortDesc": "在调试对话中使用飞书文档、消息、日历、表格等能力",
+      "description": "在调试对话中使用飞书文档、消息、日历、表格等能力。复用镜像预装 CLI，按需完成当前沙盒授权。",
+      "authType": "guide",
+      "version": "1.0.0",
+      "revision": "3",
+      "deliveryType": "skills",
+      "detailContent": {
+        "readme": "## 使用方式\n\n添加连接器后，在包含该依赖的新调试会话中使用。本连接器适用于 Agent / Plugin，包含 28 个 Skill。\n\n## 运行环境\n\nharness 镜像需预装 lark-cli 1.0.97。添加时不执行安装命令；目录中的已添加状态不代表第三方授权完成。\n\n## 授权\n\n按 Skill 在当前调试沙盒中完成官方浏览器或扫码授权。开发沙盒与调试沙盒的授权状态相互独立；不在聊天或项目文件中填写密钥。",
+        "use_cases": [
+          {
+            "description": "授权后，在调试对话中查询日程安排",
+            "prompt": "使用飞书 CLI查看我今天的日程",
+            "title": "查询我的日程"
+          },
+          {
+            "description": "读取有权限访问的文档并生成摘要",
+            "prompt": "使用飞书 CLI帮我总结指定文档",
+            "title": "读取并总结文档"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_feishu_cli",
+      "capabilities": []
+    },
+    {
+      "id": "ic_atomic_990003",
+      "name": "麦克风与录音",
+      "kind": "firstparty",
+      "category": "StepX 手机硬件",
+      "shortDesc": "通过快记打开、暂停、恢复和结束录音。",
+      "description": "打开快记并进入录音功能。缺少录音权限时先引导用户在快记内授权，返回等待授权而非已开始录音，授权完成后自动开始录音。支持暂停、恢复、结束并保存当前录音；已暂停或已在录时分别返回对应状态，无可暂停或恢复的录音时返回资源缺失失败，无可结束的录音时成功返回。“保存录音”直接结束并保存当前这一段，不备份已有文件，也不支持录音转文字。",
+      "authType": "none",
+      "version": "1.0.0",
+      "revision": "1",
+      "deliveryType": "ability",
+      "detailContent": {
+        "use_cases": [
+          {
+            "description": "通过快记开始录音；缺少权限时先等待用户在快记内授权，完成后自动开始录音，不提供录音转文字。",
+            "prompt": "帮我用快记开始录音",
+            "title": "开始录音"
+          },
+          {
+            "description": "直接结束并保存当前这一段快记录音，无可结束的录音时也成功返回；不备份已有录音文件，不提供录音转文字。",
+            "prompt": "结束当前录音并保存",
+            "title": "结束并保存录音"
+          }
+        ]
+      },
+      "interfaceOverview": null,
+      "requiredCredentials": [],
+      "builderTypes": [
+        "app",
+        "agent",
+        "plugin"
+      ],
+      "url": "https://studio.stepx.com/connectors/ic_atomic_990003",
+      "capabilities": [
+        {
+          "name": "lite_recorder_open_recording",
+          "displayName": "lite_recorder_open_recording",
+          "description": "打开快记并进入录音功能。若缺少麦克风或音乐和音频等录音所需权限，会先引导用户在快记内完成授权（返回等待授权，不要说成已成功开启）；授权完成后再自动开始录音。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_stop_recording",
+          "displayName": "lite_recorder_stop_recording",
+          "description": "结束当前录音或当前这一段对话录制。正在手动录音时结束并保存；当前没有可结束的录音时也成功返回。凡表达停止/结束录音、结束这一段（对话）录制，均走本能力。「保存录音」同样走本能力，直接结束并保存当前这一段，不要翻存储或反问。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_pause_recording",
+          "displayName": "lite_recorder_pause_recording",
+          "description": "暂停当前正在进行的录音。正在手动录音时暂停手录；已是暂停态则成功返回并说明已暂停。当前没有可暂停的录音时返回失败（资源缺失），须明确告知用户当前没有可暂停的录音，不要说成已暂停成功。凡表达暂停录音、先停一下（但不要结束保存），均走本能力。不具备录音转文字能力。"
+        },
+        {
+          "name": "lite_recorder_resume_recording",
+          "displayName": "lite_recorder_resume_recording",
+          "description": "恢复当前已暂停的录音。手动录音处于暂停时继续手录；已在录则成功返回并说明已在进行中。当前没有可恢复的录音时返回失败（资源缺失），须明确告知用户当前没有可恢复的录音，不要说成已恢复成功。凡表达继续录音、恢复录音、接着录，均走本能力。不具备录音转文字能力。"
+        }
+      ]
+    }
+  ]
+}

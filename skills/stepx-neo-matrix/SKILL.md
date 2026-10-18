@@ -9,7 +9,7 @@ description: 开发和控制 STEPX Neo 手机的 17×23 背屏点阵，生成动
 
 ## 选择通道
 
-- **在 StepX Neo Studio 中开发**：创建「背屏点阵工坊」项目，使用已有的项目文件编辑通道修改 `neo-matrix.json`。读项目 `MATRIX.md`，保存时带最新文件基线；通过本机构建生成独立 APK，或上传 Studio 继续开发。读 [动画与运行壳接口](references/project-api.md)。
+- **在 StepX Neo Studio 中开发**：1.1.10 起已移除工坊入口；对已有点阵项目，可使用项目文件编辑通道修改 `neo-matrix.json`。新项目可用本技能脚本生成动画数据，并自行提供调用独立运行壳接口的 HTML 页面。读项目 `MATRIX.md`，保存时带最新文件基线；通过本机构建生成独立 APK，或上传 Studio 继续开发。读 [动画与运行壳接口](references/project-api.md)。
 - **开发自己的原生 App**：读 [原生接口](references/native-api.md)。通过 `Context.getSystemService("display_ext")` 取得管理器，普通反射调用公开方法。无需模型 API Key、云端凭据、系统签名或 root；不要使用隐藏 API 豁免。接口不可用时报告具体限制。
 - **熄屏/后台调试**：读 [后台与验收](references/background.md)。本技能附带的 `scripts/neo_background.py` 通过用户已连接的 ADB 查询/单 App 放行/撤销，不修改全局冻结策略。普通 App 无法自行执行该 shell 操作。
 - **官方 Studio 网页壳**：用已配置的 `ic_atomic_990001` 连接器与平台 MCP bridge；保留平台 bootstrap。该平台路径与本机原生后台路径不同，不复制其他 App 的能力凭据。功能范围及权限差异见 [通道对比](references/channels.md)。

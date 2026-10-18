@@ -1,0 +1,11 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+const c=vm.createContext({URL});vm.runInContext(fs.readFileSync('assets/usage.js','utf8'),c);
+const known=n=>({known:true,input:n-2,output:2,total:n}),report=(id,n,t)=>({projectId:id,projectName:id,generatedAt:t,totals:{total:n}});
+const s={projects:[{id:'a',name:'A',cloud:{id:'p_one'}},{id:'b',name:'B',cloud:{id:'p_one'}},{id:'c',name:'C',cloud:{id:'p_unread'}},{id:'d',name:'D'}],chats:[{id:'chat',projectId:'a'}],usage:[{id:'r1',projectId:'a',usage:known(10)},{id:'r1',projectId:'a',usage:known(10)},{id:'r2',projectId:'b',source:'step_api',usage:known(20)},{id:'r3',chatId:'chat',usage:{known:false}},{id:'r4',projectId:'deleted',usage:known(30)},{id:'r5',usage:known(40)},{id:'r6',source:'studio',projectId:'a',usage:{known:false}}],studioUsageReports:{p_one:report('p_one',100,20),p_two:report('p_two',200,30)},studioUsageReport:report('p_one',1,10)};
+let rows=c.projectLedger(s);assert.equal(rows.length,6);let a=rows.find(x=>x.id==='cloud:p_one');assert.equal(a.externalTotal.total,10);assert.equal(a.stepTotal.total,20);assert.equal(a.externalTotal.unknown,1);assert.equal(a.studio.totals.total,100);assert.equal(rows.find(x=>x.id==='cloud:p_unread').studio,null);assert.equal(rows.find(x=>x.id==='unassigned').externalTotal.total,40);assert.equal(rows.find(x=>x.id==='local:deleted').externalTotal.total,30);assert.equal(rows.reduce((n,x)=>n+(x.studio?.totals.total||0),0),300);
+s.studioUsageReport=report('p_one',120,40);assert.equal(c.projectLedger(s).find(x=>x.id==='cloud:p_one').studio.totals.total,120);
+for(let i=0;i<40;i++)s.studioUsageReports['p_'+i]=report('p_'+i,1,i);assert.equal(Object.keys(c.studioReports(s)).length,42);
+console.log('PASS project totals, cross-provider separation, duplicate requests/reports, linked copies, unknown/deleted/unassigned and >30 Studio projects');
+const localOnly=c.projectLedger({projects:[{id:'native',name:'Native'}],chats:[],usage:[{id:'local-infer',projectId:'native',source:'local_model',usage:{known:true,input:10,output:5,total:15}}]});
+assert.equal(localOnly[0].localTotal.total,15);assert.equal(localOnly[0].externalTotal.total,0);assert.equal(localOnly[0].stepTotal.total,0);
+console.log('PASS local model accounting stays separate from external and Step APIs');

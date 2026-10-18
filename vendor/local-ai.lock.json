@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://repo.maven.apache.org/maven2/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar",
+    "path": "vendor/local-ai/annotations-23.0.0.jar",
+    "sha256": "7b0f19724082cbfcbc66e5abea2b9bc92cf08a1ea11e191933ed43801eb3cd05"
+  },
+  {
+    "url": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar",
+    "path": "vendor/local-ai/gson-2.14.0.jar",
+    "sha256": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f"
+  },
+  {
+    "url": "https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-reflect/2.4.0/kotlin-reflect-2.4.0.jar",
+    "path": "vendor/local-ai/kotlin-reflect-2.4.0.jar",
+    "sha256": "f0d8e8908624eb4478bb131e9f887366680d2e239741195e548fa5c906963b90"
+  },
+  {
+    "url": "https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/2.4.0/kotlin-stdlib-2.4.0.jar",
+    "path": "vendor/local-ai/kotlin-stdlib-2.4.0.jar",
+    "sha256": "ccb14ff83fabcb11458b798dbc9824748ccdffeec79c9aba789e6ed1cda86b1c"
+  },
+  {
+    "url": "https://repo.maven.apache.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.11.0/kotlinx-coroutines-android-1.11.0.jar",
+    "path": "vendor/local-ai/kotlinx-coroutines-android-1.11.0.jar",
+    "sha256": "c2cb206d27017c7d1bf5ff179787397543d13748dbabb0d7237e1585e0b29044"
+  },
+  {
+    "url": "https://repo.maven.apache.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.11.0/kotlinx-coroutines-core-jvm-1.11.0.jar",
+    "path": "vendor/local-ai/kotlinx-coroutines-core-jvm-1.11.0.jar",
+    "sha256": "d1d75aa01dffbb4d1c520e67e4c4e7f5f6174718e7cb4632412503f2f0e604fa"
+  },
+  {
+    "url": "https://dl.google.com/dl/android/maven2/com/google/ai/edge/litertlm/litertlm-android/0.18.0/litertlm-android-0.18.0.aar",
+    "path": "vendor/local-ai/runtime.aar",
+    "sha256": "706cbb8a87739b2818111bf3a19a78b8f7781586d10f80adf3415581fab7595f",
+    "extract": {
+      "classes.jar": "vendor/local-ai/litertlm-0.18.0.jar",
+      "jni/arm64-v8a/liblitertlm_jni.so": "vendor/local-ai/jni/arm64-v8a/liblitertlm_jni.so"
+    }
+  },
+  {
+    "url": "https://dl.google.com/dl/android/maven2/com/android/tools/r8/9.5.26/r8-9.5.26.jar",
+    "path": "vendor/tools/r8-9.5.26.jar",
+    "sha256": "3502f087388ce95bbf5254555927f09385dc2636873964d0bd53f3eaf4fb49ad"
+  }
+]

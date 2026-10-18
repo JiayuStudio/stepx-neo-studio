@@ -38,7 +38,7 @@
 - DeepSeek API：https://api-docs.deepseek.com/zh-cn/
 - DeepSeek 推理模式：https://api-docs.deepseek.com/guides/thinking_mode/
 
-本项目按文档独立实现协议适配，不捆绑厂商 SDK，也不包含用户 API Key。更多开发入口与验证边界见 `官方开发资料.md`。
+云端 API 按文档独立实现协议适配。端侧推理使用下文列出的 LiteRT-LM 运行时。更多开发入口与验证边界见 `官方开发资料.md`。
 
 ## 图形与测试资产
 
@@ -109,3 +109,12 @@
 - 本轮检索Neo背屏相关开源实现，未找到可确认许可且适配官方授权的现成原生后台方案。画布、动画协议、校验器和播放器均为本项目新增代码。
 
 - Neo固件 `display_ext` / `StepOSDisplayManager` 及单App冻结诊断命令来自用户设备上的接口观察。MatrixDevice等适配代码独立实现；已验证普通App原生显示，不需要复用官方MCP能力凭据。AI技能与工具脚本为本项目编写，相关实测条件见 skills/stepx-neo-matrix。
+
+
+## 1.1.10 端侧模型与官方连接器
+
+- [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM) 0.18.0 / [Android 接入文档](https://developers.google.com/edge/litert-lm/android)：实际复用 Google 的 Android 运行时、Engine/Conversation API、arm64 JNI 和 BenchmarkInfo。模型管理、文件校验、采样参数、工具循环、UI和项目暂存由本项目实现。
+- [Gemma 4 E4B LiteRT-LM 模型卡](https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm) 与 [官方生成参数](https://huggingface.co/google/gemma-4-E4B-it/blob/main/generation_config.json)：用于下载来源、Android包32K上限和温度1/Top-K64/Top-P0.95参数。模型权重单独下载，不随APK或源码分发；模型卡声明Apache-2.0，实际使用仍需核对所选文件的许可。
+- 实际运行依赖：Gson 2.14.0、Kotlin stdlib/reflect 2.4.0、kotlinx-coroutines Android/core 1.11.0、JetBrains annotations 23.0.0；许可文本见 [随包许可](assets/licenses-local-ai.txt)。来源和SHA-256锁定于 [依赖锁](vendor/local-ai.lock.json)，`prepare-local-ai.py`校验后下载。R8/D8 9.5.26仅作构建工具，不随APK分发。
+- [GitHub REST 搜索与内容API](https://docs.github.com/en/rest/search/search#search-repositories)：实际用于开发前检索候选仓库、许可证和少量相关源码；检索结果不等于已复用。生成项目如采用参考代码，应保留对应版权、许可、文件与固定提交来源。
+- [Step Studio 连接器目录](https://studio.stepx.com/connectors)：实际纳入公开连接器名称、用途、能力说明、适用构建器和配置要求，来源保留到每项。查询与同步客户端独立实现，未复用官方网页代码、图标或账号连接资料。该站内公开接口可能变化；完整说明见 [连接器目录](连接器目录.md)。
