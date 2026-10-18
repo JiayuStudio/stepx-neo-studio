@@ -2,8 +2,6 @@
 
 面向 STEPX Neo 的独立第三方客户端。包名 `studio.jiayu.neo`，Android 11 / API 30 以上，target SDK 36。
 
-来源说明优先阅读：[ra1nzzz/stepstudio-apk 的参考范围与全部第三方来源](ATTRIBUTION.md)。
-
 ## 1.2
 
 - **对话新建项目**：直接说“新建一个待办项目”，助手会创建独立本地项目、绑定新对话并写入代码；后续对话继续修改同一项目。失败或退出保留已创建项目，未完成代码不覆盖旧文件。
