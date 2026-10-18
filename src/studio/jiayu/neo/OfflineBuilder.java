@@ -15,13 +15,19 @@ import javax.security.auth.x500.X500Principal;
 
 /** Offline packaging of Web projects using the bundled, precompiled runtime. */
 final class OfflineBuilder {
- static JSONObject build(Context c,JSONObject p,int number)throws Exception{
+ static JSONObject build(MainActivity c,JSONObject p,int number)throws Exception{
+  JSONObject compiled=LocalCompiler.compile(c,p);JSONObject outputFiles=compiled.getJSONObject("files");validateOutput(outputFiles);
   String id=p.getString("id");if(!id.matches("[a-zA-Z0-9_-]{1,100}"))throw new Exception("项目 ID 不适合打包");String suffix=id.replaceAll("[^a-zA-Z0-9]","").toLowerCase(Locale.ROOT);if(suffix.length()<20)suffix=UUID.nameUUIDFromBytes(id.getBytes(StandardCharsets.UTF_8)).toString().replace("-", "");String pkg="studio.jiayu.neoapp.p"+suffix.substring(0,20),version="0.1."+(number-1);
   File dir=new File(c.getFilesDir(),"builds");dir.mkdirs();File unsigned=new File(dir,id+"-unsigned.apk"),output=new File(dir,id+"-"+number+".apk");
   JSONObject files=p.getJSONObject("files");if(files.has("neo-matrix.json"))studio.jiayu.matrix.MatrixSpec.parse(files.getString("neo-matrix.json"));if(!files.has("index.html"))throw new Exception("项目缺少 index.html");
   try(ZipInputStream in=new ZipInputStream(c.getAssets().open("runtime-template.apk"));ZipOutputStream out=new AlignedZip(new Counter(new FileOutputStream(unsigned)))){
    ZipEntry entry;while((entry=in.getNextEntry())!=null){String n=entry.getName();if(n.startsWith("META-INF/")||entry.isDirectory())continue;byte[] b=MainActivity.readLimited(in,4*1024*1024);if(n.equals("AndroidManifest.xml"))b=manifest(b,pkg,p.optString("name","Neo App"),version,number);if(n.equals("res/drawable/icon.png"))b=icon(p.optString("name","Neo"));put(out,n,b);}
-   for(Iterator<String> it=files.keys();it.hasNext();){String n=it.next();if(!n.matches("[\\p{L}\\p{N}_-][\\p{L}\\p{N} ._-]{0,99}")||n.contains("..")||n.equals("neo-runtime.js"))throw new Exception("项目文件名不适合打包："+n);put(out,"assets/project/"+n,files.getString(n).getBytes(StandardCharsets.UTF_8));}
+   for(Iterator<String> it=outputFiles.keys();it.hasNext();){String n=it.next();put(out,"assets/project/"+n,CloudFiles.bytes(outputFiles.getJSONObject(n)));}
+   if(compiled.optJSONArray("libraries")!=null&&compiled.getJSONArray("libraries").length()>0){
+    JSONObject manifest;try(InputStream v=c.getAssets().open("local-vendor/manifest.json")){manifest=new JSONObject(new String(MainActivity.readLimited(v,1024*1024),StandardCharsets.UTF_8));}
+    Set<String> names=new TreeSet<>();for(Iterator<String>it=manifest.keys();it.hasNext();)names.add(manifest.getJSONObject(it.next()).getString("file"));names.add("LICENSES.txt");
+    for(String n:names){if(!CloudFiles.path(n))throw new Exception("内置依赖路径无效");try(InputStream v=c.getAssets().open("local-vendor/"+n)){put(out,"assets/project/__vendor/"+n,MainActivity.readLimited(v,4*1024*1024));}}
+   }
    put(out,"assets/project.json",new JSONObject().put("id",id).put("name",p.optString("name")).put("version",version).toString().getBytes(StandardCharsets.UTF_8));
   }
   KeyStore ks=KeyStore.getInstance("AndroidKeyStore");ks.load(null);String alias="neo-offline-apk-signing";
@@ -30,7 +36,11 @@ final class OfflineBuilder {
   ApkSigner.SignerConfig signer=new ApkSigner.SignerConfig.Builder("neo-local",key,Collections.singletonList(certificate)).build();
   try{new ApkSigner.Builder(Collections.singletonList(signer)).setInputApk(unsigned).setOutputApk(output).setMinSdkVersion(30).setV1SigningEnabled(false).setV2SigningEnabled(true).setV3SigningEnabled(true).setV4SigningEnabled(false).build().sign();}finally{unsigned.delete();}
   MessageDigest digest=MessageDigest.getInstance("SHA-256");try(InputStream in=new FileInputStream(output)){byte[]b=new byte[8192];int n;while((n=in.read(b))!=-1)digest.update(b,0,n);}StringBuilder hash=new StringBuilder();for(byte b:digest.digest())hash.append(String.format(Locale.ROOT,"%02x",b&255));
-  return new JSONObject().put("number",number).put("version",version).put("package",pkg).put("file",output.getName()).put("bytes",output.length()).put("sha256",hash.toString()).put("time",System.currentTimeMillis()).put("route","offline-device");
+  return new JSONObject().put("number",number).put("version",version).put("package",pkg).put("file",output.getName()).put("bytes",output.length()).put("sha256",hash.toString()).put("time",System.currentTimeMillis()).put("route","offline-device").put("compiled",true).put("compilerNote",compiled.optString("note")).put("libraries",compiled.optJSONArray("libraries"));
+ }
+ static void validateOutput(JSONObject entries)throws Exception{
+  if(!entries.has("index.html")||entries.length()>400)throw new Exception("编译输出缺少入口或文件过多");long total=0;
+  for(Iterator<String>it=entries.keys();it.hasNext();){String n=it.next();if(!CloudFiles.path(n)||CloudFiles.excluded(n)||n.equals("neo-runtime.js")||n.startsWith("__vendor/"))throw new Exception("编译输出路径不适合打包："+n);byte[] b=CloudFiles.bytes(entries.getJSONObject(n));total+=b.length;if(b.length>8*1024*1024||total>16*1024*1024)throw new Exception("编译输出超过单文件8 MB或合计16 MB");}
  }
  static final class Counter extends FilterOutputStream {long count;Counter(OutputStream o){super(o);}public void write(int b)throws IOException{out.write(b);count++;}public void write(byte[]b,int off,int len)throws IOException{out.write(b,off,len);count+=len;}}
  static final class AlignedZip extends ZipOutputStream {final Counter counter;AlignedZip(Counter c){super(c);counter=c;}}
