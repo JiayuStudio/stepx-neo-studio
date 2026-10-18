@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="studio.jiayu.neo" android:versionCode="120" android:versionName="1.1.10">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="studio.jiayu.neo" android:versionCode="121" android:versionName="1.2.0">
 <uses-sdk android:minSdkVersion="30" android:targetSdkVersion="36"/>
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
