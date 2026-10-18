@@ -118,3 +118,9 @@
 - 实际运行依赖：Gson 2.14.0、Kotlin stdlib/reflect 2.4.0、kotlinx-coroutines Android/core 1.11.0、JetBrains annotations 23.0.0；许可文本见 [随包许可](assets/licenses-local-ai.txt)。来源和SHA-256锁定于 [依赖锁](vendor/local-ai.lock.json)，`prepare-local-ai.py`校验后下载。R8/D8 9.5.26仅作构建工具，不随APK分发。
 - [GitHub REST 搜索与内容API](https://docs.github.com/en/rest/search/search#search-repositories)：实际用于开发前检索候选仓库、许可证和少量相关源码；检索结果不等于已复用。生成项目如采用参考代码，应保留对应版权、许可、文件与固定提交来源。
 - [Step Studio 连接器目录](https://studio.stepx.com/connectors)：实际纳入公开连接器名称、用途、能力说明、适用构建器和配置要求，来源保留到每项。查询与同步客户端独立实现，未复用官方网页代码、图标或账号连接资料。该站内公开接口可能变化；完整说明见 [连接器目录](连接器目录.md)。
+
+## 绘图接口：协议参考
+
+- OmniaKey 官方 [CLI 与示例](https://omniakey.com/zh/cli)、[开发工具 v0.1.0](https://github.com/omniakey-com/omniakey-devtools/tree/v0.1.0)：核对媒体任务请求结构、`/v1/media/tasks`、幂等键、任务状态与恢复方式。仅参考协议，未复制或分发其 JavaScript 实现。
+- [OpenAI Images API](https://developers.openai.com/api/reference/resources/images/methods/generate)：参考 Images 兼容请求及 `data[].b64_json` / `data[].url` 返回形式。没有引入 OpenAI SDK。
+- [openai4j](https://github.com/ai-for-java/openai4j)：评估 Java 客户端方案；本项目未引入该依赖或复制其代码。绘图传输、JSON 模板、原生密钥隔离和项目写入为本项目实现。

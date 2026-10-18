@@ -82,3 +82,7 @@ html[data-appearance=contrast] .tag{background:#333;color:#fff;border-color:#aaa
 .project-upload{flex:0 0 36px;padding:8px 5px;margin:0;background:transparent;border:0;box-shadow:none}.sync-result{display:grid;grid-template-columns:1fr auto;gap:4px 8px;padding:10px 0;border-bottom:1px solid var(--line)}.sync-result small{grid-column:1/-1;overflow-wrap:anywhere}.cloud-batch summary{cursor:pointer}
 
 .build-note{display:block;margin-top:10px;overflow-wrap:anywhere}
+
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.art-asset{display:flex;flex-direction:column;gap:6px;min-width:0}.art-asset img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px;background:#202024}.art-asset strong,.art-asset code{overflow-wrap:anywhere;font-size:11px}.art-asset small{font-size:10px}
+
+.project-relay{font-size:10px;padding:6px;flex-shrink:0;white-space:nowrap;min-width:0}.project-open{min-width:0}.project-open .grow{min-width:0}.project-open strong{overflow-wrap:anywhere}

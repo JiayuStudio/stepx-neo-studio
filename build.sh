@@ -27,7 +27,7 @@ fi
 if [ "$MODE" = update-test ]; then
   python3 - <<'PYTEST'
 from pathlib import Path
-p=Path('out/AndroidManifest.xml');p.write_text(p.read_text().replace('versionCode="122"','versionCode="115"').replace('versionName="1.2.1"','versionName="1.1.5"'))
+p=Path('out/AndroidManifest.xml');p.write_text(p.read_text().replace('versionCode="124"','versionCode="115"').replace('versionName="1.2.3"','versionName="1.1.5"'))
 PYTEST
 fi
 "$BT/aapt2" compile --dir res -o out/compiled.zip
@@ -43,6 +43,6 @@ with zipfile.ZipFile('out/unaligned.apk','a',zipfile.ZIP_DEFLATED) as z:
  for p in Path('vendor/local-ai/jni/arm64-v8a').glob('*.so'):z.write(p,'lib/arm64-v8a/'+p.name)
 PY
 "$BT/zipalign" -f 4 out/unaligned.apk out/aligned.apk
-JAVA_HOME="$JDK" "$BT/apksigner" sign --ks "$KEYDIR/keystore.p12" --ks-key-alias neo --ks-pass "file:$KEYDIR/password" --out "dist/StepXNeoStudio-1.2.1-$MODE.apk" out/aligned.apk
-JAVA_HOME="$JDK" "$BT/apksigner" verify --verbose "dist/StepXNeoStudio-1.2.1-$MODE.apk"
-(cd dist && shasum -a 256 "StepXNeoStudio-1.2.1-$MODE.apk" > "StepXNeoStudio-1.2.1-$MODE.sha256")
+JAVA_HOME="$JDK" "$BT/apksigner" sign --ks "$KEYDIR/keystore.p12" --ks-key-alias neo --ks-pass "file:$KEYDIR/password" --out "dist/StepXNeoStudio-1.2.3-$MODE.apk" out/aligned.apk
+JAVA_HOME="$JDK" "$BT/apksigner" verify --verbose "dist/StepXNeoStudio-1.2.3-$MODE.apk"
+(cd dist && shasum -a 256 "StepXNeoStudio-1.2.3-$MODE.apk" > "StepXNeoStudio-1.2.3-$MODE.sha256")
